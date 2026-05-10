@@ -1,11 +1,16 @@
 <?php
 
-use App\Http\Controllers\PetaniController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\EdukasiController;
+use App\Http\Controllers\Admin\GradeController;
+use App\Http\Controllers\Admin\KriteriaController;
+use App\Http\Controllers\Admin\RuleCfController;
 
-Route::get('/', [PetaniController::class, 'index'])->name('home');
-
-Route::prefix('petani')->name('petani.')->group(function () {
-    Route::get('/', [PetaniController::class, 'index'])->name('index');
-    Route::post('/analisis', [PetaniController::class, 'store'])->name('analyze');
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('grade', GradeController::class);
+    Route::resource('kriteria', KriteriaController::class);
+    Route::resource('rule-cf', RuleCfController::class);
+    Route::resource('edukasi', EdukasiController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('riwayat', RiwayatController::class);
 });
