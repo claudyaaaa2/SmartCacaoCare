@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('petani.index', $this->formData());
+        return redirect()->route('petani.analysis');
     }
 
     private function formData(?array $result = null, array $selected = []): array
