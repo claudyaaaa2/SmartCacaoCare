@@ -32,7 +32,8 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
 });
 
 Route::prefix('petani')->group(function () {
-    Route::get('/', [UserDashboardController::class, 'index'])->name('petani.index');
+    // Tampilkan form analisis di /petani untuk pengguna umum
+    Route::get('/', [UserAnalisisController::class, 'index'])->name('petani.index');
     Route::get('/analisis', [UserAnalisisController::class, 'index'])->name('petani.analysis');
     Route::post('/analisis', [UserAnalisisController::class, 'store'])->name('petani.analyze');
     Route::get('/edukasi', [UserEdukasiController::class, 'index'])->name('petani.edukasi');

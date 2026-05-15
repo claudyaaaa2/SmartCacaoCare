@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +7,75 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Shared visual system for SmartCacaoCare (hero, cards, buttons, metrics) */
+:root{
+    --bg:#f8f2e9;
+    --panel:rgba(255,255,255,.88);
+    --line:rgba(17,24,39,.10);
+    --text:#18211f;
+    --muted:#66736d;
+    --ink:#13201b;
+    --forest:#1f4b37;
+    --rust:#a85b2c;
+}
+
+body{background:linear-gradient(180deg,#f8f2e9 0%, #f2eadf 100%);color:var(--text);font-family:var(--font-sans);}
+
+.sc-frame{max-width:1240px;margin:0 auto;padding:18px 18px 56px}
+.sc-topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0 18px}
+.sc-brand{display:flex;align-items:center;gap:12px;font-weight:800}
+.sc-mark{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,#1f4b37,#a85b2c);box-shadow:0 14px 30px rgba(20,33,29,.12)}
+
+.sc-nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.sc-nav a{padding:10px 12px;color:var(--muted);text-decoration:none;font-weight:700}
+.sc-links{display:flex;gap:10px;flex-wrap:wrap}
+
+.sc-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:800;line-height:1;border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.72)}
+.sc-btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.sc-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:stretch}
+.sc-panel{border:1px solid var(--line);border-radius:28px;background:var(--panel);overflow:hidden}
+.sc-hero-main{position:relative;padding:28px;min-height:420px;display:flex;flex-direction:column;justify-content:space-between}
+.sc-hero-copy{position:relative;z-index:1;max-width:60ch;padding-right:36%}
+.sc-brandline{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.18);color:#fff;font-size:.8rem;font-weight:800}
+.sc-hero h1{margin:16px 0 10px;font-size:clamp(2.3rem,5vw,4.35rem);line-height:1.02;color:#fff}
+.sc-lead{margin:0;max-width:42ch;font-size:1.02rem;line-height:1.75;color:rgba(255,255,255,.88)}
+.sc-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+
+.sc-metric-chip{padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.20);color:#fff;min-width:140px}
+.sc-metric-chip span{display:block;font-size:.8rem;opacity:.84;margin-bottom:4px}
+.sc-metric-chip strong{font-size:1.15rem}
+
+.sc-side{padding:20px;display:grid;grid-template-rows:auto auto 1fr;gap:12px;background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.78))}
+.sc-side .intro{font-size:1.05rem;line-height:1.7;color:var(--text);margin:0}
+.sc-side-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px}
+
+.sc-grid{display:grid;grid-template-columns:1.12fr .95fr .93fr;gap:14px}
+.sc-card{padding:18px;border-radius:24px;border:1px solid var(--line);background:rgba(255,255,255,.88)}
+.sc-card.dark{background:linear-gradient(180deg,#1b2940,#101826);color:#fff;border-color:rgba(255,255,255,.06)}
+
+@media (max-width:1080px){.sc-hero,.sc-grid{grid-template-columns:1fr}.sc-hero-copy{padding-right:0}}
+
+@media (max-width:720px){.sc-frame{padding:14px}.sc-hero-main{padding:22px}.sc-btn{width:100%}}
+
+/* Utilities used across views */
+.muted{color:var(--muted)}
+.sc-pill{display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(31,75,55,.08);color:var(--forest);font-size:.8rem;font-weight:800}
+.sc-badge{display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);font-weight:800}
+.sc-result-band{padding:22px;border-radius:16px;background:linear-gradient(180deg,#214334,#18352d);color:#fff}
+.sc-stats{display:grid;gap:10px;margin-top:14px}
+.sc-stat{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--line)}
+/* aliases to support older classnames used in views */
+.stats{display:grid;gap:10px;margin-top:14px}
+.stat{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--line)}
+.sc-mini-stat{padding:14px;border-radius:18px;background:linear-gradient(180deg,#fff,#f9f6f1);border:1px solid var(--line)}
+.sc-text-right{text-align:right}
+.sc-list{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.sc-list li{padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.82);border:1px solid var(--line)}
+.sc-note{margin-top:12px}
+.sc-small-margin{margin-top:6px}
+

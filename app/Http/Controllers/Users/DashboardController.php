@@ -13,16 +13,18 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return redirect()->route('petani.analysis');
+        return view('petani.dashboard', $this->formData());
     }
 
     private function formData(?array $result = null, array $selected = []): array
     {
         return [
-            'criteria' => $this->certaintyFactorService->criteria(),
-            'options' => $this->certaintyFactorService->options(),
-            'result' => $result,
-            'selected' => $selected,
+            'criteriaCount' => count($this->certaintyFactorService->criteria()),
+            'gradeCount' => count($this->certaintyFactorService->grades()),
+            'fieldLabels' => array_values(array_map(
+                fn ($definition) => $definition['label'] ?? '',
+                $this->certaintyFactorService->criteria()
+            )),
         ];
     }
 }
