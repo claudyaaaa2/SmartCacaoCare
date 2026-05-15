@@ -4,20 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', '!=', 'admin')->get(); // Mengambil data petani saja
-        return view('admin.users.index', compact('users'));
+        $users = User::where('role', 'user')
+                     ->withCount('hasilAnalisis')
+                     ->latest()
+                     ->get();
+
+        return view('admin.user.index', compact('users'));
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        User::destroy($id);
-        return redirect()->back()->with('success', 'User berhasil dihapus');
+        $user->delete();
+
+        return redirect()->route('admin.user.index')
+                         ->with('success', 'User berhasil dihapus!');
     }
 }

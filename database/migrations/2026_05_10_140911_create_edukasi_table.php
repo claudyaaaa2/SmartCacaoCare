@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
+     /**
      * Run the migrations.
      */
     public function up(): void
@@ -14,17 +14,24 @@ return new class extends Migration
         Schema::create('edukasi', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('slug')->unique();
-            $table->text('konten');
-            $table->string('gambar')->nullable();
-            $table->enum('kategori', ['perawatan', 'pengolahan', 'hama']);
+            $table->enum('kategori', [
+                'budidaya',
+                'perawatan',
+                'panen',
+                'pasca_panen',
+                'hama_penyakit',
+                'kualitas'
+            ]);
+            $table->text('ringkasan');
+            $table->longText('konten');
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+        /**
+        * Reverse the migrations.
+        */
     public function down(): void
     {
         Schema::dropIfExists('edukasi');

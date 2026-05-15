@@ -14,28 +14,54 @@ class GradeController extends Controller
         return view('admin.grade.index', compact('grades'));
     }
 
+    public function create()
+    {
+        return view('admin.grade.create');
+    }
+
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nama_grade' => 'required',
-            'deskripsi' => 'required',
-            'saran_penanganan' => 'required'
+        $request->validate([
+            'kode_grade'  => 'required|string|max:2|unique:grade_kualitas',
+            'nama_grade'  => 'required|string|max:100',
+            'cf_min'      => 'required|numeric|min:0|max:1',
+            'cf_max'      => 'required|numeric|min:0|max:1',
+            'deskripsi'   => 'required|string',
+            'rekomendasi' => 'required|string',
         ]);
 
-        GradeKualitas::create($data);
-        return redirect()->back()->with('success', 'Grade berhasil ditambahkan');
+        GradeKualitas::create($request->all());
+
+        return redirect()->route('admin.grade.index')
+                         ->with('success', 'Grade berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
+    public function edit(GradeKualitas $grade)
     {
-        $grade = GradeKualitas::findOrFail($id);
+        return view('admin.grade.edit', compact('grade'));
+    }
+
+    public function update(Request $request, GradeKualitas $grade)
+    {
+        $request->validate([
+            'nama_grade'  => 'required|string|max:100',
+            'cf_min'      => 'required|numeric|min:0|max:1',
+            'cf_max'      => 'required|numeric|min:0|max:1',
+            'deskripsi'   => 'required|string',
+            'rekomendasi' => 'required|string',
+        ]);
+
         $grade->update($request->all());
-        return redirect()->back()->with('success', 'Grade berhasil diperbarui');
+
+        return redirect()->route('admin.grade.index')
+                         ->with('success', 'Grade berhasil diperbarui!');
     }
 
-    public function destroy($id)
+    public function destroy(GradeKualitas $grade)
     {
-        GradeKualitas::destroy($id);
-        return redirect()->back()->with('success', 'Grade berhasil dihapus');
+        $grade->delete();
+
+        return redirect()->route('admin.grade.index')
+                         ->with('success', 'Grade berhasil dihapus!');
     }
 }

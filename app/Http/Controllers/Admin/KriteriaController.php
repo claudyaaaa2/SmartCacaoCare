@@ -4,40 +4,57 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kriteria;
-use App\Models\PilihanKriteria;
 use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
 {
     public function index()
     {
-        $kriteria = Kriteria::with('pilihan')->get();
+        $kriteria = Kriteria::with('pilihanKriteria')->get();
         return view('admin.kriteria.index', compact('kriteria'));
+    }
+
+    public function create()
+    {
+        return view('admin.kriteria.create');
     }
 
     public function store(Request $request)
     {
-        $request->validate(['nama_kriteria' => 'required']);
-        Kriteria::create($request->only('nama_kriteria'));
-        return redirect()->back()->with('success', 'Kriteria berhasil ditambah');
-    }
-
-    // Fungsi Tambah Pilihan Kriteria (Bobot CF)
-    public function storePilihan(Request $request)
-    {
         $request->validate([
-            'kriteria_id' => 'required',
-            'nama_pilihan' => 'required',
-            'bobot' => 'required|numeric'
+            'nama_kriteria' => 'required|string|max:100',
+            'deskripsi'     => 'required|string',
         ]);
 
-        PilihanKriteria::create($request->all());
-        return redirect()->back()->with('success', 'Pilihan & Bobot berhasil ditambah');
+        Kriteria::create($request->all());
+
+        return redirect()->route('admin.kriteria.index')
+                         ->with('success', 'Kriteria berhasil ditambahkan!');
     }
 
-    public function destroy($id)
+    public function edit(Kriteria $kriteria)
     {
-        Kriteria::destroy($id);
-        return redirect()->back()->with('success', 'Kriteria dihapus');
+        return view('admin.kriteria.edit', compact('kriteria'));
+    }
+
+    public function update(Request $request, Kriteria $kriteria)
+    {
+        $request->validate([
+            'nama_kriteria' => 'required|string|max:100',
+            'deskripsi'     => 'required|string',
+        ]);
+
+        $kriteria->update($request->all());
+
+        return redirect()->route('admin.kriteria.index')
+                         ->with('success', 'Kriteria berhasil diperbarui!');
+    }
+
+    public function destroy(Kriteria $kriteria)
+    {
+        $kriteria->delete();
+
+        return redirect()->route('admin.kriteria.index')
+                         ->with('success', 'Kriteria berhasil dihapus!');
     }
 }

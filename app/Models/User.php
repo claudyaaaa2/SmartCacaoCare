@@ -13,11 +13,27 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // Tambahkan ini jika ada pemisahan admin/petani
+        'role',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    // Cek apakah user adalah admin
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // Relasi ke hasil analisis
+    public function hasilAnalisis()
+    {
+        return $this->hasMany(HasilAnalisis::class);
+    }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kriteria', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kriteria'); // Misal: Warna
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }

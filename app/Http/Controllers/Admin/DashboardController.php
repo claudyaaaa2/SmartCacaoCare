@@ -7,22 +7,27 @@ use App\Models\User;
 use App\Models\Kriteria;
 use App\Models\HasilAnalisis;
 use App\Models\Edukasi;
-use Illuminate\Http\Request;
+use App\Models\RuleCf;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Mengambil statistik singkat untuk kotak informasi di dashboard
-        $data = [
-            'total_petani'   => User::where('role', 'user')->count(),
-            'total_kriteria' => Kriteria::count(),
-            'total_diagnosis' => HasilAnalisis::count(),
-            'total_artikel'  => Edukasi::count(),
-            // Mengambil 5 riwayat diagnosis terbaru untuk ditampilkan di tabel dashboard
-            'riwayat_terbaru' => HasilAnalisis::with(['user', 'grade'])->latest()->take(5)->get(),
-        ];
+        $totalUser     = User::where('role', 'user')->count();
+        $totalKriteria = Kriteria::count();
+        $totalAnalisis = HasilAnalisis::count();
+        $totalEdukasi  = Edukasi::count();
+        $totalRule     = RuleCf::count();
 
-        return view('admin.dashboard', compact('data'));
+        $riwayatTerbaru = HasilAnalisis::with('user') ->latest() ->take(5) ->get();
+
+        return view('admin.dashboard', compact(
+            'totalUser',
+            'totalKriteria',
+            'totalAnalisis',
+            'totalEdukasi',
+            'totalRule',
+            'riwayatTerbaru'
+        ));
     }
 }

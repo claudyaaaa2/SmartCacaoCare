@@ -1,9 +1,18 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class Edukasi extends Model {
+class Edukasi extends Model
+{
     protected $table = 'edukasi';
-    protected $fillable = ['judul', 'slug', 'konten', 'gambar', 'kategori'];
+
+    protected $fillable = [
+        'judul',
+        'kategori',
+        'ringkasan',
+        'konten',
+        'thumbnail',
+    ];
 }

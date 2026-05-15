@@ -1,13 +1,20 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class Kriteria extends Model {
+class Kriteria extends Model
+{
     protected $table = 'kriteria';
-    protected $fillable = ['nama_kriteria'];
 
-    public function pilihan() {
-        return $this->hasMany(PilihanKriteria::class, 'kriteria_id');
+    protected $fillable = [
+        'nama_kriteria',
+        'deskripsi', // ← TAMBAH INI
+    ];
+
+    public function pilihanKriteria()
+    {
+        return $this->hasMany(PilihanKriteria::class);
     }
 }

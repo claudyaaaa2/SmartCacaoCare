@@ -6,23 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('grade_kualitas', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_grade');
             $table->string('nama_grade');
+            $table->decimal('cf_min', 4, 2);
+            $table->decimal('cf_max', 4, 2);
             $table->text('deskripsi');
-            $table->text('saran_penanganan'); // Pastikan baris ini ADA
+            $table->text('rekomendasi');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('grade_kualitas');

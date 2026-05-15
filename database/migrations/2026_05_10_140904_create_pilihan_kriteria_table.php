@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kriteria_id')->constrained('kriteria')->onDelete('cascade');
             $table->string('nama_pilihan');
-            $table->double('bobot'); // <--- TAMBAHKAN BARIS INI
             $table->timestamps();
         });
     }

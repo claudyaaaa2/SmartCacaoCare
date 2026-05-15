@@ -9,14 +9,11 @@ class RiwayatController extends Controller
 {
     public function index()
     {
-        // Admin bisa melihat semua riwayat konsultasi petani
-        $riwayat = HasilAnalisis::with(['user', 'grade'])->latest()->get();
+        $riwayat = HasilAnalisis::with('user')
+                    ->latest()
+                    ->paginate(10);
+
         return view('admin.riwayat.index', compact('riwayat'));
     }
-
-    public function show($id)
-    {
-        $detail = HasilAnalisis::with(['user', 'grade'])->findOrFail($id);
-        return view('admin.riwayat.show', compact('detail'));
-    }
+    
 }

@@ -7,18 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class HasilAnalisis extends Model
 {
     protected $table = 'hasil_analisis';
+
     protected $fillable = [
         'user_id',
-        'grade_id',
-        'nilai_cf',
-        'detail_analisis' // Simpan data kriteria yang dipilih dalam bentuk JSON
+        'pilihan_user',
+        'grade_hasil',
+        'persentase_cf',
+        'rekomendasi',
     ];
 
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
+    protected $casts = [
+        'pilihan_user' => 'array',
+    ];
 
-    public function grade() {
-        return $this->belongsTo(GradeKualitas::class, 'grade_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
