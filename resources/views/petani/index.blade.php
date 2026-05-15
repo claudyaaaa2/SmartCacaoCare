@@ -328,11 +328,14 @@
 
                         <div class="form-grid">
                             @foreach ($criteria as $field => $definition)
+                                @php
+                                    $fieldOptions = $definition['options'] ?? $options;
+                                @endphp
                                 <div class="field">
                                     <label for="{{ $field }}">{{ $definition['label'] }}</label>
                                     <select id="{{ $field }}" name="{{ $field }}" required>
                                         <option value="">Pilih kondisi {{ strtolower($definition['label']) }}</option>
-                                        @foreach ($options as $key => $option)
+                                        @foreach ($fieldOptions as $key => $option)
                                             <option value="{{ $key }}" @selected(old($field, $selected[$field] ?? '') === $key)>
                                                 {{ $option }}
                                             </option>

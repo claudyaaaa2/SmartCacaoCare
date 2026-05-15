@@ -11,11 +11,14 @@ use App\Http\Controllers\Admin\KriteriaController;
 use App\Http\Controllers\Admin\RuleCfController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RiwayatController;
+use App\Http\Controllers\Users\AnalisisController as UserAnalisisController;
+use App\Http\Controllers\Users\DashboardController as UserDashboardController;
+use App\Http\Controllers\Users\EdukasiController as UserEdukasiController;
 
 // --- 1. GUEST ROUTES (Belum Login) ---
 // Rute ini hanya bisa diakses oleh orang yang belum login
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () { return view('landing'); }); 
+    Route::get('/', function () { return view('welcome'); }); 
     Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
@@ -25,8 +28,14 @@ Route::middleware('guest')->group(function () {
 // --- 2. USER / PETANI ROUTES ---
 // Dilindungi Middleware: Wajib login & role harus 'user'
 Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
-    Route::get('/dashboard', function () { return "Ini Halaman Dashboard Petani"; })->name('user.dashboard');
-    // Nanti rute Analisis CF buatan Darean dimasukkan ke dalam blok ini
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+});
+
+Route::prefix('petani')->group(function () {
+    Route::get('/', [UserDashboardController::class, 'index'])->name('petani.index');
+    Route::get('/analisis', [UserAnalisisController::class, 'index'])->name('petani.analysis');
+    Route::post('/analisis', [UserAnalisisController::class, 'store'])->name('petani.analyze');
+    Route::get('/edukasi', [UserEdukasiController::class, 'index'])->name('petani.edukasi');
 });
 
 // --- 3. ADMIN ROUTES ---
