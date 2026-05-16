@@ -3,38 +3,39 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dashboard petani SmartCacaoCare — pantau alur mutu kakao dari satu halaman.">
     <title>Dashboard Petani - SmartCacaoCare</title>
 
     @fonts
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
-        <style>body{font-family:'Nunito',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}</style>
     @endif
 </head>
 <body>
     <div class="sc-frame">
         <header class="sc-topbar">
-                <div class="sc-brand">
+            <div class="sc-brand">
                 <div class="sc-mark"></div>
                 <div>
                     <div>SmartCacaoCare</div>
-                    <small class="muted">Ruang kontrol mutu kakao</small>
+                    <small>Ruang kontrol mutu kakao</small>
                 </div>
             </div>
             <nav class="sc-links">
                 <a class="sc-btn" href="{{ route('petani.analysis') }}">Analisis</a>
                 <a class="sc-btn" href="{{ route('petani.edukasi') }}">Edukasi</a>
-                <a class="sc-btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a>
+                <a class="sc-btn secondary" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a>
             </nav>
         </header>
 
         <section class="sc-hero">
             <div class="sc-panel sc-hero-main">
-                <span class="sc-brandline">Dashboard Petani</span>
-                <h1>Mulai dari lot, bukan dari asumsi.</h1>
-                <p class="sc-lead">Pantau alur mutu kakao dari satu halaman: analisis, baca grade, lalu buka edukasi yang relevan.</p>
+                <div class="sc-hero-copy">
+                    <span class="sc-brandline">Dashboard Petani</span>
+                    <h1>Mulai dari lot, bukan dari asumsi.</h1>
+                    <p class="sc-lead">Pantau alur mutu kakao dari satu halaman: analisis, baca grade, lalu buka edukasi yang relevan.</p>
+                </div>
             </div>
             <aside class="sc-panel sc-side">
                 <span class="sc-brandline">Ringkasan</span>

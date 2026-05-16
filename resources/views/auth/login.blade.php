@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Masuk ke SmartCacaoCare untuk mengakses analisis mutu kakao dan dashboard petani.">
     <title>Masuk - SmartCacaoCare</title>
 
     @fonts
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
-        <style>body{font-family:'Nunito',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}</style>
     @endif
 </head>
 <body>
@@ -51,8 +50,8 @@
                 </div>
 
                 <div class="actions">
-                    <button class="button primary" type="submit">Masuk</button>
-                    <a class="button secondary" href="{{ url('/') }}">Kembali</a>
+                    <button class="sc-btn primary" type="submit">Masuk</button>
+                    <a class="sc-btn secondary" href="{{ url('/') }}">Kembali</a>
                 </div>
             </form>
 

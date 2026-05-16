@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Form analisis mutu biji kakao menggunakan metode Certainty Factor.">
     <title>Analisis Kakao - SmartCacaoCare</title>
 
     @fonts
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
-        <style>body{font-family:'Nunito',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}</style>
     @endif
 </head>
 <body>
@@ -35,11 +34,13 @@
 
         <section class="sc-hero">
             <div class="sc-panel sc-hero-main">
-                <span class="sc-brandline">Form lapangan</span>
-                <h1>Nilai mutu kakao dengan tampilan yang lebih tenang.</h1>
-                <p class="sc-lead">Pilih kondisi tiap kriteria sesuai hasil pengamatan. Hasilnya dibaca sebagai grade utama dan jejak perhitungan, tanpa tampilan yang ramai atau terasa generik.</p>
+                <div class="sc-hero-copy">
+                    <span class="sc-brandline">Form lapangan</span>
+                    <h1>Nilai mutu kakao dengan tampilan yang lebih tenang.</h1>
+                    <p class="sc-lead">Pilih kondisi tiap kriteria sesuai hasil pengamatan. Hasilnya dibaca sebagai grade utama dan jejak perhitungan, tanpa tampilan yang ramai.</p>
+                </div>
             </div>
-            <aside class="hero-side">
+            <aside class="sc-panel hero-side">
                 <span class="pill">Panduan singkat</span>
                 <div class="mini-grid">
                     <div class="mini"><span>Cara kerja</span><strong>Pilih kondisi lalu baca ranking</strong></div>
@@ -80,7 +81,6 @@
 
                     <form method="POST" action="{{ route('petani.analyze') }}">
                         @csrf
-
                         <div class="form-grid">
                             @foreach ($criteria as $field => $definition)
                                 @php $fieldOptions = $definition['options'] ?? $options; @endphp
@@ -99,7 +99,7 @@
 
                         <div class="actions">
                             <button class="sc-btn primary" type="submit">Hitung Grade</button>
-                            <a class="sc-btn" href="{{ route('petani.index') }}">Reset pilihan</a>
+                            <a class="sc-btn secondary" href="{{ route('petani.index') }}">Reset pilihan</a>
                         </div>
                     </form>
                 </div>
@@ -108,10 +108,9 @@
             <aside class="sc-panel">
                 @if ($result)
                     <div class="result-band">
-                        <span class="sc-pill" style="background:rgba(255,255,255,.12); color:#fff;">Tahap 2 · Hasil</span>
+                        <span class="sc-pill" style="background:rgba(255,255,255,.12);color:#fff;">Tahap 2 · Hasil</span>
                         <h3>{{ $result['best_grade']['label'] }}</h3>
                         <p>Confidence akhir: {{ number_format($result['best_grade']['percentage'], 2) }}%</p>
-
                         <div class="scoreline">
                             @foreach ($result['rankings'] as $ranking)
                                 <div class="score-row">
@@ -127,13 +126,9 @@
 
                     <div class="panel-inner">
                         <div class="panel-head">
-                            <div>
-                                <h3>Jejak keputusan</h3>
-                                <p>Ringkasan input dan alasan hasil grade.</p>
-                            </div>
+                            <div><h3>Jejak keputusan</h3><p>Ringkasan input dan alasan hasil grade.</p></div>
                             <span class="tag">CF ranking</span>
                         </div>
-
                         <div class="criteria">
                             @foreach ($result['selected_criteria'] as $criterion)
                                 <div class="item">
@@ -146,13 +141,9 @@
                             @endforeach
                         </div>
 
-                        <div class="panel-head sc-small-margin">
-                            <div>
-                                <h3>Detail grade teratas</h3>
-                                <p>Nilai yang paling berpengaruh pada hasil akhir.</p>
-                            </div>
+                        <div class="panel-head" style="margin-top:24px">
+                            <div><h3>Detail grade teratas</h3><p>Nilai yang paling berpengaruh pada hasil akhir.</p></div>
                         </div>
-
                         <div class="detail">
                             @foreach ($result['best_grade']['details'] as $detail)
                                 <div class="item">
@@ -162,7 +153,7 @@
                                     </div>
                                     <div class="sc-text-right">
                                         <span class="tag">{{ number_format($detail['weighted_evidence'], 4) }}</span>
-                                        <div class="muted sc-small-margin">Evidence {{ number_format($detail['evidence'], 2) }} · Bobot {{ number_format($detail['weight'], 2) }}</div>
+                                        <div class="muted sc-small-margin" style="font-size:12px">Evidence {{ number_format($detail['evidence'], 2) }} · Bobot {{ number_format($detail['weight'], 2) }}</div>
                                     </div>
                                 </div>
                             @endforeach
@@ -170,7 +161,7 @@
                     </div>
                 @else
                     <div class="result-band">
-                        <span class="pill" style="background:rgba(255,255,255,.12); color:#fff;">Tahap 2 · Siap hitung</span>
+                        <span class="pill" style="background:rgba(255,255,255,.12);color:#fff;">Tahap 2 · Siap hitung</span>
                         <h3>Grade akan muncul di sini.</h3>
                         <p>Setelah form diisi, sistem menampilkan ranking grade dari tertinggi ke terendah.</p>
                         <div class="footer-note">Tampilan dibuat lebih sederhana agar fokus tetap ke keputusan, bukan dekorasi.</div>
@@ -179,7 +170,7 @@
                     <div class="panel-inner">
                         <div class="notice">
                             <strong>Kenapa tampilannya dibuat begini?</strong>
-                            <p style="margin:10px 0 0; color: var(--muted);">
+                            <p style="margin:10px 0 0;color:var(--text-tertiary)">
                                 Supaya terasa lebih kalem, lebih editorial, dan tidak terlalu seperti template umum.
                                 Fokusnya tetap jelas: pilih kondisi, lihat hasil, lalu ambil keputusan.
                             </p>
@@ -194,7 +185,7 @@
         document.querySelectorAll('.bar > span').forEach(function (el) {
             var p = Number(el.getAttribute('data-percent') || 0);
             p = Math.max(0, Math.min(100, p));
-            el.style.width = p + '%';
+            setTimeout(function(){ el.style.width = p + '%'; }, 100);
         });
     });
     </script>
