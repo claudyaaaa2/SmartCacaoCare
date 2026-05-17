@@ -19,19 +19,19 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required'
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Cek role untuk mengarahkan ke dashboard yang benar
+            // Cek role → arahkan ke dashboard yang benar
             if (Auth::user()->role === 'admin') {
-                return redirect()->intended('/admin/dashboard');
+                return redirect('/admin/dashboard');
             }
 
-            return redirect()->intended('/user/dashboard');
+            return redirect('/user/dashboard');
         }
 
         return back()->withErrors([
@@ -45,20 +45,20 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    // Memproses data register (untuk Petani)
+    // Memproses data register
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|min:8|confirmed',
         ]);
 
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => 'user' // Default role yang mendaftar adalah user/petani
+            'role'     => 'user',
         ]);
 
         Auth::login($user);
