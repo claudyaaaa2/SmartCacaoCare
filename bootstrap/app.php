@@ -11,12 +11,21 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        
-        // --- TAMBAHKAN KODE INI DI SINI ---
+
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
-        // ----------------------------------
+
+        // Redirect guest ke login
+        $middleware->redirectGuestsTo('/login');
+
+        // Redirect user setelah login sesuai role
+        $middleware->redirectUsersTo(function ($request) {
+            if (auth()->user()->role === 'admin') {
+                return '/admin/dashboard';
+            }
+            return '/user/dashboard';
+        });
 
     })
     ->withExceptions(function (Exceptions $exceptions) {
