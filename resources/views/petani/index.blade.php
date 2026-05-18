@@ -8,43 +8,47 @@
 @endsection
 
 @section('content')
-    <section class="sc-hero">
-        <div class="sc-panel sc-hero-main">
-            <span class="sc-brandline"><i data-lucide="clipboard-list" style="width:14px;height:14px"></i> Form lapangan</span>
-            <h1>Nilai mutu kakao dengan tampilan yang lebih tenang.</h1>
-            <p class="sc-lead">Pilih kondisi tiap kriteria sesuai hasil pengamatan. Hasilnya dibaca sebagai grade utama dan jejak perhitungan, tanpa tampilan yang ramai atau terasa generik.</p>
-        </div>
-        <aside class="hero-side">
-            <span class="pill"><i data-lucide="lightbulb" style="width:14px;height:14px"></i> Panduan singkat</span>
-            <div class="mini-grid">
-                <div class="mini"><span><i data-lucide="mouse-pointer-click" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Cara kerja</span><strong>Pilih kondisi lalu baca ranking</strong></div>
-                <div class="mini"><span><i data-lucide="target" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Target utama</span><strong>Menentukan grade biji paling meyakinkan</strong></div>
-                <div class="mini"><span><i data-lucide="list-checks" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Rujukan</span><strong>{{ count($criteria) }} kriteria inti</strong></div>
-            </div>
-        </aside>
-    </section>
+    {{-- Centered header --}}
+    <div class="analysis-header">
+        <span class="sc-brandline"><i data-lucide="clipboard-list" style="width:14px;height:14px"></i> Form Lapangan</span>
+        <h1>Nilai mutu kakao Anda.</h1>
+        <p class="sc-lead">Pilih kondisi tiap kriteria sesuai hasil pengamatan. Sistem menghitung grade dan confidence secara otomatis.</p>
+    </div>
 
-    <div class="layout">
+    {{-- Steps as connected bar --}}
+    <div class="analysis-steps">
+        <div class="a-step">
+            <div class="step-num">1</div>
+            <b><i data-lucide="eye" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Cek visual</b>
+            <span>Lihat warna, aroma, dan kondisi fisik biji.</span>
+        </div>
+        <div class="a-step">
+            <div class="step-num">2</div>
+            <b><i data-lucide="file-edit" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Isi form</b>
+            <span>Pilih opsi yang paling mendekati pengamatan.</span>
+        </div>
+        <div class="a-step">
+            <div class="step-num">3</div>
+            <b><i data-lucide="bar-chart-3" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Baca hasil</b>
+            <span>Bandingkan grade terbaik dan keyakinan.</span>
+        </div>
+    </div>
+
+    {{-- Two-column: form + result --}}
+    <div class="analysis-body">
         <section class="sc-panel">
             <div class="panel-inner">
                 <div class="panel-head">
                     <div>
-                        <span class="tag"><i data-lucide="pencil" style="width:12px;height:12px"></i> Tahap 1 · Input kondisi</span>
-                        <h2 class="sc-small-margin">Form Penilaian Petani</h2>
+                        <span class="tag"><i data-lucide="pencil" style="width:12px;height:12px"></i> Input kondisi</span>
+                        <h2 class="sc-small-margin">Form Penilaian</h2>
                         <p>Pilih satu nilai untuk setiap kriteria. Data ini menjadi bahan hitung certainty factor.</p>
                     </div>
-                    <span class="tag"><i data-lucide="alert-circle" style="width:12px;height:12px"></i> Wajib lengkap</span>
-                </div>
-
-                <div class="steps">
-                    <div class="step"><b><i data-lucide="eye" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> 1. Cek visual</b><span>Lihat warna, aroma, dan kondisi fisik biji.</span></div>
-                    <div class="step"><b><i data-lucide="file-edit" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> 2. Isi form</b><span>Pilih opsi yang paling mendekati hasil pengamatan.</span></div>
-                    <div class="step"><b><i data-lucide="bar-chart-3" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> 3. Baca hasil</b><span>Bandingkan grade terbaik dan detail keyakinan.</span></div>
                 </div>
 
                 @if ($errors->any())
                     <div class="notice error">
-                        <strong><i data-lucide="alert-triangle" style="width:14px;height:14px;display:inline;vertical-align:middle"></i> Masih ada input yang perlu diperbaiki.</strong>
+                        <strong><i data-lucide="alert-triangle" style="width:14px;height:14px"></i> Masih ada input yang perlu diperbaiki.</strong>
                         <div class="sc-small-margin">
                             @foreach ($errors->all() as $error)
                                 <div>{{ $error }}</div>
@@ -55,7 +59,6 @@
 
                 <form method="POST" action="{{ route('petani.analyze') }}">
                     @csrf
-
                     <div class="form-grid">
                         @foreach ($criteria as $field => $definition)
                             @php $fieldOptions = $definition['options'] ?? $options; @endphp
@@ -74,7 +77,7 @@
 
                     <div class="actions">
                         <button class="sc-btn primary" type="submit"><i data-lucide="calculator" style="width:16px;height:16px"></i> Hitung Grade</button>
-                        <a class="sc-btn" href="{{ route('petani.index') }}"><i data-lucide="rotate-ccw" style="width:16px;height:16px"></i> Reset pilihan</a>
+                        <a class="sc-btn" href="{{ route('petani.index') }}"><i data-lucide="rotate-ccw" style="width:16px;height:16px"></i> Reset</a>
                     </div>
                 </form>
             </div>
@@ -83,10 +86,9 @@
         <aside class="sc-panel">
             @if ($result)
                 <div class="result-band">
-                    <span class="sc-pill" style="background:rgba(255,255,255,.12); color:#fff;"><i data-lucide="trophy" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Tahap 2 · Hasil</span>
+                    <span class="sc-pill" style="background:rgba(255,255,255,.12); color:#fff;"><i data-lucide="trophy" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Hasil Analisis</span>
                     <h3>{{ $result['best_grade']['label'] }}</h3>
-                    <p>Confidence akhir: {{ number_format($result['best_grade']['percentage'], 2) }}%</p>
-
+                    <p>Confidence: {{ number_format($result['best_grade']['percentage'], 2) }}%</p>
                     <div class="scoreline">
                         @foreach ($result['rankings'] as $ranking)
                             <div class="score-row">
@@ -104,11 +106,10 @@
                     <div class="panel-head">
                         <div>
                             <h3><i data-lucide="git-branch" style="width:16px;height:16px;display:inline;vertical-align:middle"></i> Jejak keputusan</h3>
-                            <p>Ringkasan input dan alasan hasil grade.</p>
+                            <p>Ringkasan input dan alasan grade.</p>
                         </div>
-                        <span class="tag">CF ranking</span>
+                        <span class="tag">CF</span>
                     </div>
-
                     <div class="criteria">
                         @foreach ($result['selected_criteria'] as $criterion)
                             <div class="item">
@@ -124,10 +125,9 @@
                     <div class="panel-head sc-small-margin" style="margin-top:20px">
                         <div>
                             <h3><i data-lucide="bar-chart-2" style="width:16px;height:16px;display:inline;vertical-align:middle"></i> Detail grade teratas</h3>
-                            <p>Nilai yang paling berpengaruh pada hasil akhir.</p>
+                            <p>Nilai paling berpengaruh pada hasil akhir.</p>
                         </div>
                     </div>
-
                     <div class="detail">
                         @foreach ($result['best_grade']['details'] as $detail)
                             <div class="item">
@@ -145,19 +145,15 @@
                 </div>
             @else
                 <div class="result-band">
-                    <span class="sc-pill" style="background:rgba(255,255,255,.12); color:#fff;"><i data-lucide="clock" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Tahap 2 · Siap hitung</span>
+                    <span class="sc-pill" style="background:rgba(255,255,255,.12); color:#fff;"><i data-lucide="clock" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Menunggu input</span>
                     <h3>Grade akan muncul di sini.</h3>
-                    <p>Setelah form diisi, sistem menampilkan ranking grade dari tertinggi ke terendah.</p>
-                    <div class="footer-note">Tampilan dibuat lebih sederhana agar fokus tetap ke keputusan, bukan dekorasi.</div>
+                    <p>Isi form di sebelah kiri, lalu tekan Hitung Grade.</p>
+                    <div class="footer-note"><i data-lucide="info" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Ranking ditampilkan dari tertinggi ke terendah.</div>
                 </div>
-
                 <div class="panel-inner">
                     <div class="notice">
-                        <strong><i data-lucide="help-circle" style="width:14px;height:14px;display:inline;vertical-align:middle"></i> Kenapa tampilannya dibuat begini?</strong>
-                        <p>
-                            Supaya terasa lebih kalem, lebih editorial, dan tidak terlalu seperti template umum.
-                            Fokusnya tetap jelas: pilih kondisi, lihat hasil, lalu ambil keputusan.
-                        </p>
+                        <strong><i data-lucide="lightbulb" style="width:14px;height:14px"></i> Tips</strong>
+                        <p>Cek kondisi visual biji secara langsung sebelum mengisi form. Hasil yang akurat bergantung pada pengamatan yang cermat.</p>
                     </div>
                 </div>
             @endif
