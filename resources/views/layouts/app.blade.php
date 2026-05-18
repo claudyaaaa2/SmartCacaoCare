@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', config('app.name', 'SmartCacaoCare'))</title>
 
-    @fonts
+    {{-- Google Fonts: Outfit (Display) and Inter (Body) --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -16,54 +19,86 @@
     {{-- Lucide Icons CDN --}}
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body>
-    <div class="sc-frame">
-        <header class="sc-topbar" id="topbar">
-            <div class="sc-brand">
-                <div class="sc-mark">
-                    <i data-lucide="leaf" style="width:20px;height:20px;color:#fff"></i>
+<body class="bg-canvas text-ink font-body">
+
+    <div class="announcement-bar">
+        <span><span class="font-mono uppercase tracking-widest text-coral mr-2">Status</span> SmartCacaoCare is in active development. <a href="#" class="underline hover:text-white transition-colors">Learn more</a></span>
+    </div>
+
+    <div class="max-w-[1440px] mx-auto w-full">
+        <header class="flex items-center justify-between h-[80px] px-[24px] lg:px-[80px] bg-canvas relative z-50 border-b border-border-light" id="topbar">
+            <div class="flex items-center gap-3 font-display font-medium text-[20px] text-ink tracking-tight">
+                <div class="w-[32px] h-[32px] rounded-xs bg-cohere-black flex items-center justify-center text-on-dark">
+                    <i data-lucide="leaf" style="width:18px;height:18px"></i>
                 </div>
-                <div>
-                    <div>SmartCacaoCare</div>
-                    <small>Sistem analisis mutu kakao</small>
-                </div>
+                SmartCacaoCare
             </div>
 
+            <button class="md:hidden p-2 text-ink" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Menu">
+                <i data-lucide="menu" style="width:24px;height:24px"></i>
+            </button>
+
             @hasSection('nav')
-                @yield('nav')
+                <div class="hidden md:flex items-center gap-6">
+                    @yield('nav')
+                </div>
             @else
-                <nav class="sc-nav" id="main-nav">
-                    <a href="#about"><i data-lucide="info" style="width:14px;height:14px"></i> About</a>
-                    <a href="#services"><i data-lucide="grid-3x3" style="width:14px;height:14px"></i> Services</a>
-                    <a href="#contact"><i data-lucide="mail" style="width:14px;height:14px"></i> Contacts</a>
+                <nav class="hidden md:flex items-center gap-8 text-body font-medium">
+                    <a href="#about" class="text-ink hover:text-action-blue transition-colors">About</a>
+                    <a href="#services" class="text-ink hover:text-action-blue transition-colors">Services</a>
+                    <a href="#contact" class="text-ink hover:text-action-blue transition-colors">Contacts</a>
                 </nav>
             @endif
 
-            <button class="sc-menu-toggle" onclick="document.getElementById('topbar').classList.toggle('open')" aria-label="Menu">
-                <i data-lucide="menu" style="width:20px;height:20px"></i>
-            </button>
-
-            <nav class="sc-links">
-                <a class="sc-btn" href="{{ route('petani.edukasi') }}">
-                    <i data-lucide="book-open" style="width:16px;height:16px"></i> Edukasi
+            <nav class="hidden md:flex items-center gap-4">
+                <a class="text-coral text-body font-medium flex items-center gap-1.5 hover:underline transition-all" href="{{ route('petani.edukasi') }}">
+                    <i data-lucide="book-open" class="w-4 h-4"></i> Edukasi
                 </a>
                 @auth
-                    <a class="sc-btn primary" href="{{ route('user.dashboard') }}">
-                        <i data-lucide="layout-dashboard" style="width:16px;height:16px"></i> Dashboard
+                    <a class="btn-primary" href="{{ route('user.dashboard') }}">
+                        Dashboard <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
                     </a>
                 @else
-                    <a class="sc-btn primary" href="{{ route('login') }}">
-                        <i data-lucide="log-in" style="width:16px;height:16px"></i> Masuk
+                    <a class="btn-primary" href="{{ route('login') }}">
+                        Masuk <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
                     </a>
                 @endauth
             </nav>
+
+            {{-- Mobile Menu --}}
+            <div id="mobile-menu" class="hidden absolute top-[80px] left-0 right-0 bg-canvas border-b border-border-light p-[24px] flex flex-col gap-4 shadow-lg md:hidden">
+                <a class="btn-secondary justify-start text-lg" href="{{ route('petani.edukasi') }}">Edukasi</a>
+                @auth
+                    <a class="btn-primary w-full justify-center mt-2" href="{{ route('user.dashboard') }}">Dashboard</a>
+                @else
+                    <a class="btn-primary w-full justify-center mt-2" href="{{ route('login') }}">Masuk</a>
+                @endauth
+            </div>
         </header>
 
-        @yield('content')
+        <main class="min-h-[calc(100vh-80px-200px)]">
+            @yield('content')
+        </main>
 
-        <footer class="sc-footer">
-            <span><i data-lucide="leaf" style="width:14px;height:14px;display:inline;vertical-align:middle"></i> SmartCacaoCare</span>
-            <span>Warm minimal UI for cocoa quality support</span>
+        <footer class="footer-newsletter">
+            <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-[40px] items-center">
+                <div>
+                    <span class="inline-flex items-center justify-center bg-transparent text-coral text-caption rounded-sm px-[10px] py-[4px] border border-coral-soft mb-[16px]">Agricultural Infrastructure</span>
+                    <h3 class="font-display text-[32px] font-normal leading-[1.2] tracking-[-0.01em] text-on-dark mb-4">Advance your cacao quality.</h3>
+                    <p class="text-muted text-body max-w-[40ch]">SmartCacaoCare provides the tools and references you need to make confident decisions on the field.</p>
+                </div>
+                <div class="flex flex-col gap-[16px]">
+                    <p class="text-micro text-muted uppercase tracking-[0.02em] font-mono">Subscribe to updates</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email address" class="w-full h-[44px] px-[14px] py-[10px] rounded-xs border border-cohere-black bg-ink text-on-dark text-body transition-colors focus:outline-none focus:border-coral focus:ring-1 focus:ring-coral">
+                        <button class="btn-primary-white">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-[1200px] mx-auto mt-[64px] pt-[24px] border-t border-ink flex flex-col md:flex-row justify-between text-muted">
+                <span class="flex items-center gap-2"><i data-lucide="leaf" style="width:14px;height:14px"></i> SmartCacaoCare 2026</span>
+                <span class="mt-4 md:mt-0 text-right">Enterprise Quality Control</span>
+            </div>
         </footer>
     </div>
 

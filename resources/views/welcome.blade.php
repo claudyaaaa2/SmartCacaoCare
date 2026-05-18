@@ -2,77 +2,86 @@
 @section('title', 'SmartCacaoCare — Analisis Mutu Kakao')
 
 @section('content')
-    {{-- ═══ CINEMATIC DARK HERO ═══ --}}
-    <section class="landing-hero">
-        <div class="hero-text">
-            <span class="sc-brandline" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.7)"><i data-lucide="leaf" style="width:14px;height:14px"></i> SmartCacaoCare</span>
-            <h1>Precision meets<br>simplicity.</h1>
-            <p class="sc-lead">Platform analisis mutu kakao untuk petani modern. Baca kondisi lapangan, nilai grade, ambil keputusan — semua dalam satu alur yang tenang.</p>
-            <div class="sc-cta">
-                <a href="{{ route('petani.index') }}" class="sc-btn primary"><i data-lucide="arrow-right" style="width:16px;height:16px"></i> Mulai Analisis</a>
-                <a href="{{ route('petani.edukasi') }}" class="sc-btn"><i data-lucide="book-open" style="width:16px;height:16px"></i> Pelajari Kakao</a>
+    {{-- HERO SECTION --}}
+    <section class="max-w-[1200px] mx-auto px-[24px] pt-[120px] pb-[80px]">
+        <div class="text-center max-w-[900px] mx-auto mb-[64px]">
+            <h1 class="text-hero-display mb-6 text-ink">Precision meets<br>simplicity.</h1>
+            <p class="text-body-large text-body-muted max-w-[600px] mx-auto mb-10">Platform analisis mutu kakao untuk petani modern. Baca kondisi lapangan, nilai grade, ambil keputusan — semua dalam satu alur yang tenang.</p>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="{{ route('petani.index') }}" class="btn-primary">Mulai Analisis <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
+                <a href="{{ route('petani.edukasi') }}" class="text-coral font-medium flex items-center gap-1.5 hover:underline transition-colors"><i data-lucide="book-open" class="w-5 h-5"></i> Pelajari Kakao</a>
             </div>
         </div>
-        <div class="hero-visual">
-            <div class="sc-side-card" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)">
-                <span style="color:rgba(255,255,255,.5)"><i data-lucide="palette" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Desain visual</span>
-                <strong style="color:#fff">Warm, minimal, editorial — terasa seperti alat kerja sungguhan.</strong>
+        
+        {{-- Hero Media Split --}}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 agent-console-card min-h-[400px] flex flex-col justify-between border border-cohere-black shadow-xl">
+                <div class="flex items-center gap-2 mb-8">
+                    <div class="w-3 h-3 rounded-full bg-coral"></div>
+                    <div class="w-3 h-3 rounded-full bg-action-blue"></div>
+                    <span class="text-mono-label text-muted ml-2">ANALYSIS_CONSOLE</span>
+                </div>
+                <div>
+                    <h3 class="text-card-heading text-on-dark mb-4">Real-time certainty factor calculation.</h3>
+                    <div class="bg-cohere-black p-6 rounded-xs border border-ink font-mono text-[14px] text-muted leading-loose">
+                        > analyzing sample metrics...<br>
+                        > humidity: 12%<br>
+                        > mold_presence: low<br>
+                        <span class="text-action-blue">> RESULT: GRADE A (87.4% CONFIDENCE)</span>
+                    </div>
+                </div>
             </div>
-            <div class="sc-side-card" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)">
-                <span style="color:rgba(255,255,255,.5)"><i data-lucide="compass" style="width:12px;height:12px;display:inline;vertical-align:middle"></i> Fokus utama</span>
-                <strong style="color:#fff">Analisis cepat, hasil mudah dibaca, langkah selanjutnya jelas.</strong>
+            <div class="hero-photo-card bg-soft-stone min-h-[400px] p-[32px] flex flex-col justify-end">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-auto shadow-sm">
+                    <i data-lucide="palette" class="w-6 h-6 text-primary"></i>
+                </div>
+                <span class="text-caption text-ink font-medium uppercase tracking-widest mt-8">Desain Visual</span>
+                <p class="text-body-large mt-2 text-ink">Warm, minimal, editorial — terasa seperti alat kerja sungguhan.</p>
             </div>
         </div>
     </section>
 
-    {{-- ═══ STATS STRIP ═══ --}}
-    <div class="landing-stats">
-        <div class="l-stat"><strong>4+</strong><span>Kriteria Analisis</span></div>
-        <div class="l-stat"><strong>3</strong><span>Grade Referensi</span></div>
-        <div class="l-stat"><strong>CF</strong><span>Certainty Factor</span></div>
-        <div class="l-stat"><strong>1 tap</strong><span>Alur Keputusan</span></div>
-    </div>
+    {{-- TRUST LOGO STRIP (Stats) --}}
+    <section class="trust-logo-strip border-t border-hairline mt-[40px]">
+        <span class="text-mono-label text-muted">SYSTEM CAPABILITIES</span>
+        <div class="flex flex-wrap items-center justify-center gap-[64px] md:gap-[120px] w-full max-w-[1000px]">
+            <div class="text-center"><span class="block text-[48px] font-display font-medium tracking-tight text-ink">4+</span><span class="text-caption text-muted">Kriteria Analisis</span></div>
+            <div class="text-center"><span class="block text-[48px] font-display font-medium tracking-tight text-ink">3</span><span class="text-caption text-muted">Grade Referensi</span></div>
+            <div class="text-center"><span class="block text-[48px] font-display font-medium tracking-tight text-ink">CF</span><span class="text-caption text-muted">Certainty Factor</span></div>
+            <div class="text-center"><span class="block text-[48px] font-display font-medium tracking-tight text-ink">1</span><span class="text-caption text-muted">Alur Keputusan</span></div>
+        </div>
+    </section>
 
-    {{-- ═══ BENTO FEATURES ═══ --}}
-    <section class="landing-features">
-        <div class="feat-card dark tall">
+    {{-- DARK FEATURE BAND --}}
+    <section class="dark-feature-band">
+        <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center">
             <div>
-                <div class="feat-icon"><i data-lucide="search" style="width:22px;height:22px"></i></div>
-                <h3>Analisis profesional</h3>
-                <p>Masuk ke form, pilih kondisi tiap kriteria, lalu dapatkan grade utama beserta ranking keyakinan secara real-time.</p>
+                <h2 class="text-section-display mb-6">Analisis profesional,<br>langsung di lapangan.</h2>
+                <p class="text-body-large text-slate mb-8 max-w-[440px]">Masuk ke form, pilih kondisi tiap kriteria, lalu dapatkan grade utama beserta ranking keyakinan secara real-time. Tidak ada kebisingan visual, hanya data yang Anda butuhkan.</p>
+                <ul class="flex flex-col gap-5">
+                    <li class="flex items-center gap-3 text-body-large text-on-dark"><i data-lucide="check" class="text-coral"></i> Dashboard terpadu</li>
+                    <li class="flex items-center gap-3 text-body-large text-on-dark"><i data-lucide="check" class="text-coral"></i> Edukasi terarah</li>
+                    <li class="flex items-center gap-3 text-body-large text-on-dark"><i data-lucide="check" class="text-coral"></i> Layout profesional</li>
+                </ul>
             </div>
-            <div class="feat-visual" style="background:rgba(255,255,255,.04)">
-                <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px"><span>Grade A</span><strong style="color:#fff">87.4%</strong></div>
-                <div class="bar" style="background:rgba(255,255,255,.1)"><span style="width:87%"></span></div>
-                <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.5);margin-top:12px"><span>Grade B</span><strong style="color:#fff">62.1%</strong></div>
-                <div class="bar" style="background:rgba(255,255,255,.1)"><span style="width:62%"></span></div>
+            <div class="bg-primary p-[40px] rounded-lg border border-ink shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-[200px] h-[200px] bg-action-blue opacity-10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+                <div class="flex justify-between text-caption text-muted mb-3 relative z-10"><span>Grade A</span><strong class="text-white">87.4%</strong></div>
+                <div class="h-3 rounded-full bg-ink overflow-hidden mb-8 relative z-10"><div class="h-full bg-action-blue w-[87%]"></div></div>
+                <div class="flex justify-between text-caption text-muted mb-3 relative z-10"><span>Grade B</span><strong class="text-white">62.1%</strong></div>
+                <div class="h-3 rounded-full bg-ink overflow-hidden relative z-10"><div class="h-full bg-coral w-[62%]"></div></div>
             </div>
-        </div>
-        <div class="feat-card wide">
-            <div class="feat-icon"><i data-lucide="graduation-cap" style="width:22px;height:22px"></i></div>
-            <h3>Edukasi terarah</h3>
-            <p>Referensi budidaya dan pasca panen yang membantu petani menjaga mutu kakao tetap konsisten. Seperti guidebook ringan yang selalu siap diakses.</p>
-        </div>
-        <div class="feat-card">
-            <div class="feat-icon"><i data-lucide="gauge" style="width:22px;height:22px"></i></div>
-            <h3>Dashboard terpadu</h3>
-            <p>Pantau alur mutu kakao dari satu halaman: analisis, baca grade, lalu buka edukasi yang relevan.</p>
-        </div>
-        <div class="feat-card">
-            <div class="feat-icon"><i data-lucide="layers" style="width:22px;height:22px"></i></div>
-            <h3>Layout profesional</h3>
-            <p>Interface yang tenang dan berlapis. Setiap informasi punya tempat yang jelas tanpa kebisingan visual.</p>
         </div>
     </section>
 
-    {{-- ═══ CTA BANNER ═══ --}}
-    <section class="landing-cta">
-        <h2>Mulai analisis<br>pertama Anda.</h2>
-        <p>Bergabung dengan petani kakao yang sudah menggunakan SmartCacaoCare untuk keputusan lapangan yang lebih cepat dan akurat.</p>
-        <div class="sc-cta" style="justify-content:center">
-            <a href="{{ route('petani.index') }}" class="sc-btn primary"><i data-lucide="arrow-right" style="width:16px;height:16px"></i> Mulai Sekarang</a>
+    {{-- CTA --}}
+    <section class="max-w-[800px] mx-auto text-center py-[120px] px-[24px]">
+        <h2 class="text-section-display mb-6 text-ink">Mulai analisis<br>pertama Anda.</h2>
+        <p class="text-body-large text-body-muted mb-10 max-w-[500px] mx-auto">Bergabung dengan petani kakao yang sudah menggunakan SmartCacaoCare untuk keputusan lapangan yang lebih cepat dan akurat.</p>
+        <div class="flex items-center justify-center gap-6">
+            <a href="{{ route('petani.index') }}" class="btn-primary">Mulai Sekarang</a>
             @guest
-                <a href="{{ route('register') }}" class="sc-btn" style="color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2)"><i data-lucide="user-plus" style="width:16px;height:16px"></i> Daftar Gratis</a>
+                <a href="{{ route('register') }}" class="btn-secondary">Daftar Gratis</a>
             @endguest
         </div>
     </section>

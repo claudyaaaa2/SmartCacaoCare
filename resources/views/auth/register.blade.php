@@ -4,54 +4,66 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Daftar - SmartCacaoCare</title>
-    @fonts
+    
+    {{-- Google Fonts: Outfit (Display) and Inter (Body) --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
-        <style>body{font-family:'Inter',system-ui,sans-serif;}</style>
+        <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}">
     @endif
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body>
-    <section class="auth-split">
-        <div class="auth-visual">
-            <div class="sc-mark" style="width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.08)"><i data-lucide="leaf" style="width:24px;height:24px;color:rgba(255,255,255,.7)"></i></div>
-            <span style="font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em">SmartCacaoCare</span>
-            <h1 style="font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.1">Buat akun baru<br>untuk memulai.</h1>
-            <p style="font-size:17px;color:rgba(255,255,255,.56);line-height:1.47">Daftar untuk mulai melakukan analisis, melihat edukasi, dan menyimpan riwayat pengamatan.</p>
-            <div style="padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.04);font-size:14px;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:10px"><i data-lucide="info" style="width:16px;height:16px;flex-shrink:0;color:var(--apple-blue)"></i> Pastikan email aktif untuk konfirmasi dan pemulihan akun.</div>
+<body class="bg-deep-green text-ink font-body min-h-screen flex items-center justify-center p-[24px]">
+
+    <div class="contact-form-card w-full max-w-[480px]">
+        @if ($errors->any())
+            <div class="bg-error/10 text-error p-4 rounded-xs mb-6 text-body">
+                <div class="flex items-center gap-2 mb-2 font-medium"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Terdapat kesalahan</div>
+                @foreach ($errors->all() as $error)<div>{{ $error }}</div>@endforeach
+            </div>
+        @endif
+
+        <div class="mb-10 text-center">
+            <div class="w-12 h-12 bg-primary text-white rounded-xs flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="leaf" class="w-6 h-6"></i>
+            </div>
+            <h1 class="text-section-heading mb-2">Buat akun</h1>
+            <p class="text-body text-muted">Daftar untuk mulai melakukan analisis.</p>
         </div>
 
-        <div class="auth-form">
-            <h2><i data-lucide="user-plus" style="width:22px;height:22px;display:inline;vertical-align:middle"></i> Buat akun</h2>
-            <p style="font-size:14px;color:var(--apple-text-3)">Form singkat untuk petani atau admin yang akan memakai sistem.</p>
+        <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-6">
+            @csrf
+            <div>
+                <label for="name" class="form-label">Nama</label>
+                <input id="name" name="name" type="text" value="{{ old('name') }}" class="form-input" required autofocus>
+            </div>
+            <div>
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="email" value="{{ old('email') }}" class="form-input" required>
+            </div>
+            <div>
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="password" type="password" class="form-input" required>
+            </div>
+            <div>
+                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                <input id="password_confirmation" name="password_confirmation" type="password" class="form-input" required>
+            </div>
+            
+            <div class="flex flex-col gap-4 mt-4">
+                <button class="btn-primary w-full" type="submit">Daftar</button>
+            </div>
+        </form>
 
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-                <div class="field" style="margin-bottom:12px">
-                    <label for="name"><i data-lucide="user" style="width:12px;height:12px"></i> Nama</label>
-                    <input id="name" name="name" type="text" value="{{ old('name') }}" required autofocus>
-                </div>
-                <div class="field" style="margin-bottom:12px">
-                    <label for="email"><i data-lucide="mail" style="width:12px;height:12px"></i> Email</label>
-                    <input id="email" name="email" type="email" value="{{ old('email') }}" required>
-                </div>
-                <div class="field" style="margin-bottom:12px">
-                    <label for="password"><i data-lucide="lock" style="width:12px;height:12px"></i> Password</label>
-                    <input id="password" name="password" type="password" required>
-                </div>
-                <div class="field" style="margin-bottom:12px">
-                    <label for="password_confirmation"><i data-lucide="lock" style="width:12px;height:12px"></i> Konfirmasi password</label>
-                    <input id="password_confirmation" name="password_confirmation" type="password" required>
-                </div>
-                <div class="actions">
-                    <button class="button primary" type="submit"><i data-lucide="check" style="width:16px;height:16px;display:inline;vertical-align:middle"></i> Daftar</button>
-                </div>
-            </form>
-
-            <div style="font-size:13px;color:var(--apple-text-3);margin-top:16px">Sudah punya akun? <a href="{{ route('login') }}">Masuk</a></div>
+        <div class="text-center mt-10 text-caption text-muted">
+            Sudah punya akun? <a href="{{ route('login') }}" class="text-action-blue font-medium hover:underline">Masuk</a>
         </div>
-    </section>
+    </div>
+
     <script>lucide.createIcons();</script>
 </body>
 </html>

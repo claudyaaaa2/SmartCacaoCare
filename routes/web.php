@@ -44,12 +44,12 @@ Route::prefix('petani')->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::resource('grade', GradeController::class);
-    Route::resource('kriteria', KriteriaController::class);
-    Route::resource('rule-cf', RuleCfController::class);
-    Route::resource('edukasi', EdukasiController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('riwayat', RiwayatController::class);
+    Route::resource('grade', GradeController::class)->names('admin.grade');
+    Route::resource('kriteria', KriteriaController::class)->names('admin.kriteria');
+    Route::resource('rule-cf', RuleCfController::class)->names('admin.rule');
+    Route::resource('edukasi', EdukasiController::class)->names('admin.edukasi');
+    Route::resource('users', UserController::class)->names('admin.user');
+    Route::resource('riwayat', RiwayatController::class)->names('admin.riwayat');
     
 });
 
