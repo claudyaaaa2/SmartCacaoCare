@@ -5,102 +5,81 @@
 
 @section('content')
 
-{{-- HEADER --}}
-<div class="mb-4">
-    <a href="{{ route('admin.rule.index') }}"
-       class="btn btn-outline-secondary btn-sm mb-3">
-        <i class="bi bi-arrow-left me-1"></i> Kembali
+<div class="mb-6 flex flex-col gap-4">
+    <a href="{{ route('admin.rule.index') }}" class="btn-pill-outline w-fit">
+        <i data-lucide="arrow-left" class="mr-2 h-4 w-4"></i>
+        Kembali
     </a>
-    <h5 class="fw-bold mb-0" style="color:#3d2b1f;">Edit Rule CF</h5>
+    <div>
+        <div class="mb-2 text-mono-label text-muted">Data Master</div>
+        <h2 class="text-section-heading m-0 text-ink">Edit Rule CF</h2>
+        <p class="mt-2 max-w-2xl text-caption text-muted">Perbarui hubungan antara pilihan kriteria, grade, dan nilai certainty factor.</p>
+    </div>
 </div>
 
-{{-- FORM --}}
-<div class="card border-0 shadow-sm" style="border-radius:12px;">
-    <div class="card-body p-4">
-        <form action="{{ route('admin.rule.update', $rule->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+<div class="contact-form-card">
+    <form action="{{ route('admin.rule.update', $rule->id) }}" method="POST" class="space-y-6">
+        @csrf
+        @method('PUT')
 
-            <div class="row g-3">
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Pilihan Kriteria</label>
-                    <select name="pilihan_kriteria_id"
-                            class="form-select @error('pilihan_kriteria_id') is-invalid @enderror">
-                        <option value="">-- Pilih Kondisi --</option>
-                        @foreach($pilihan as $p)
-                        <option value="{{ $p->id }}"
-                            {{ old('pilihan_kriteria_id', $rule->pilihan_kriteria_id) == $p->id ? 'selected' : '' }}>
-                            {{ $p->kriteria->nama_kriteria }} —
-                            {{ $p->nama_pilihan }}
-                        </option>
-                        @endforeach
-                    </select>
-                    @error('pilihan_kriteria_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Grade Kualitas</label>
-                    <select name="grade_id"
-                            class="form-select @error('grade_id') is-invalid @enderror">
-                        <option value="">-- Pilih Grade --</option>
-                        @foreach($grades as $grade)
-                        <option value="{{ $grade->id }}"
-                            {{ old('grade_id', $rule->grade_id) == $grade->id ? 'selected' : '' }}>
-                            Grade {{ $grade->kode_grade }} — {{ $grade->nama_grade }}
-                        </option>
-                        @endforeach
-                    </select>
-                    @error('grade_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Nilai CF</label>
-                    <input type="number"
-                           name="nilai_cf"
-                           class="form-control @error('nilai_cf') is-invalid @enderror"
-                           value="{{ old('nilai_cf', $rule->nilai_cf) }}"
-                           step="0.01" min="0" max="1">
-                    <small class="text-muted">Nilai antara 0.00 - 1.00</small>
-                    @error('nilai_cf')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                {{-- INFO --}}
-                <div class="col-12">
-                    <div class="alert py-2 mb-0"
-                         style="background:#fff3e0; border:1px solid #ffe0b2; border-radius:8px;">
-                        <small style="color:#c8860a;">
-                            <i class="bi bi-info-circle me-1"></i>
-                            Nilai CF mendekati <strong>1.0</strong> artinya kondisi ini
-                            <strong>sangat mengarah</strong> ke grade tersebut.
-                            Nilai mendekati <strong>0.0</strong> artinya
-                            <strong>tidak mengarah</strong> ke grade tersebut.
-                        </small>
-                    </div>
-                </div>
-
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div>
+                <label class="form-label" for="pilihan_kriteria_id">Pilihan Kriteria</label>
+                <select id="pilihan_kriteria_id" name="pilihan_kriteria_id" class="form-select @error('pilihan_kriteria_id') border-error focus:border-error focus:ring-error @enderror">
+                    <option value="">-- Pilih Kondisi --</option>
+                    @foreach($pilihan as $p)
+                    <option value="{{ $p->id }}" {{ old('pilihan_kriteria_id', $rule->pilihan_kriteria_id) == $p->id ? 'selected' : '' }}>
+                        {{ $p->kriteria->nama_kriteria }} — {{ $p->nama_pilihan }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('pilihan_kriteria_id')
+                    <p class="mt-2 text-caption text-error">{{ $message }}</p>
+                @enderror
             </div>
 
-            <hr class="my-4">
-
-            <div class="d-flex gap-3">
-                <button type="submit" class="btn btn-cocoa px-4">
-                    <i class="bi bi-save me-1"></i> Update
-                </button>
-                <a href="{{ route('admin.rule.index') }}"
-                   class="btn btn-outline-secondary px-4">
-                    Batal
-                </a>
+            <div>
+                <label class="form-label" for="grade_id">Grade Kualitas</label>
+                <select id="grade_id" name="grade_id" class="form-select @error('grade_id') border-error focus:border-error focus:ring-error @enderror">
+                    <option value="">-- Pilih Grade --</option>
+                    @foreach($grades as $grade)
+                    <option value="{{ $grade->id }}" {{ old('grade_id', $rule->grade_id) == $grade->id ? 'selected' : '' }}>
+                        Grade {{ $grade->kode_grade }} — {{ $grade->nama_grade }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('grade_id')
+                    <p class="mt-2 text-caption text-error">{{ $message }}</p>
+                @enderror
             </div>
 
-        </form>
-    </div>
+            <div class="md:col-span-2">
+                <label class="form-label" for="nilai_cf">Nilai CF</label>
+                <input id="nilai_cf" type="number" name="nilai_cf" class="form-input @error('nilai_cf') border-error focus:border-error focus:ring-error @enderror" value="{{ old('nilai_cf', $rule->nilai_cf) }}" step="0.01" min="0" max="1">
+                <p class="mt-2 text-caption text-muted">Nilai berada di rentang 0.00 - 1.00.</p>
+                @error('nilai_cf')
+                    <p class="mt-2 text-caption text-error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="md:col-span-2 rounded-lg border border-border-light bg-pale-blue px-5 py-4 text-action-blue">
+                <div class="flex items-start gap-3">
+                    <i data-lucide="info" class="mt-0.5 h-5 w-5"></i>
+                    <p class="text-caption leading-6">
+                        Nilai CF mendekati <strong>1.0</strong> berarti kondisi ini sangat mengarah ke grade tersebut. Nilai mendekati <strong>0.0</strong> berarti tidak mengarah ke grade tersebut.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 border-t border-border-light pt-6">
+            <button type="submit" class="btn-primary">
+                <i data-lucide="save" class="mr-2 h-4 w-4"></i>
+                Update
+            </button>
+            <a href="{{ route('admin.rule.index') }}" class="btn-secondary">Batal</a>
+        </div>
+    </form>
 </div>
 
 @endsection

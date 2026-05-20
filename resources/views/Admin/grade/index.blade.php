@@ -6,94 +6,79 @@
 @section('content')
 
 {{-- HEADER --}}
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="flex justify-between items-center mb-6">
     <div>
-        <h5 class="fw-bold mb-0" style="color:#3d2b1f;">Data Grade Kualitas</h5>
-        <small class="text-muted">Total {{ $grades->count() }} grade</small>
+        <h2 class="text-section-heading text-ink m-0">Data Grade Kualitas</h2>
+        <p class="text-caption text-muted mt-1">Total {{ $grades->count() }} grade</p>
     </div>
-    <a href="{{ route('admin.grade.create') }}" class="btn btn-cocoa">
-        <i class="bi bi-plus me-1"></i> Tambah Grade
+    <a href="{{ route('admin.grade.create') }}" class="btn-primary flex items-center gap-2">
+        <i data-lucide="plus" class="w-4 h-4"></i> Tambah Grade
     </a>
 </div>
 
-{{-- ALERT --}}
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <i class="bi bi-check-circle me-1"></i> {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
-
 {{-- TABEL --}}
-<div class="card border-0 shadow-sm" style="border-radius:12px;">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table mb-0">
-                <thead>
-                    <tr>
-                        <th class="ps-4">No</th>
-                        <th>Kode</th>
-                        <th>Nama Grade</th>
-                        <th>CF Min</th>
-                        <th>CF Max</th>
-                        <th>Deskripsi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($grades as $grade)
-                    <tr>
-                        <td class="ps-4">{{ $loop->iteration }}</td>
-                        <td>
-                            @php
-                                $gradeColors = [
-                                    'A' => 'success',
-                                    'B' => 'info',
-                                    'C' => 'warning',
-                                    'D' => 'danger',
-                                ];
-                                $color = $gradeColors[$grade->kode_grade] ?? 'secondary';
-                            @endphp
-                            <span class="badge bg-{{ $color }} px-3">
-                                {{ $grade->kode_grade }}
-                            </span>
-                        </td>
-                        <td class="fw-semibold">{{ $grade->nama_grade }}</td>
-                        <td>{{ $grade->cf_min }}</td>
-                        <td>{{ $grade->cf_max }}</td>
-                        <td>
-                            <small class="text-muted">
-                                {{ Str::limit($grade->deskripsi, 50) }}
-                            </small>
-                        </td>
-                        <td>
-                            <div class="d-flex gap-2">
-                                <a href="{{ route('admin.grade.edit', $grade->id) }}"
-                                   class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <form action="{{ route('admin.grade.destroy', $grade->id) }}"
-                                      method="POST"
-                                      onsubmit="return confirm('Yakin hapus grade ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center py-4 text-muted">
-                            Belum ada data grade
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+<div class="contact-form-card p-0 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="border-b border-border-light bg-soft-stone/50 text-mono-label text-muted">
+                    <th class="py-4 px-6 font-medium w-[80px]">No</th>
+                    <th class="py-4 px-6 font-medium">Kode</th>
+                    <th class="py-4 px-6 font-medium">Nama Grade</th>
+                    <th class="py-4 px-6 font-medium">CF Min</th>
+                    <th class="py-4 px-6 font-medium">CF Max</th>
+                    <th class="py-4 px-6 font-medium">Deskripsi</th>
+                    <th class="py-4 px-6 font-medium text-right">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-border-light">
+                @forelse($grades as $grade)
+                <tr class="hover:bg-soft-stone/30 transition-colors group">
+                    <td class="py-4 px-6 text-body text-muted">{{ $loop->iteration }}</td>
+                    <td class="py-4 px-6">
+                        @php
+                            $gradeColors = [
+                                'A' => 'text-success bg-success/10 border-success/20',
+                                'B' => 'text-action-blue bg-action-blue/10 border-action-blue/20',
+                                'C' => 'text-coral bg-coral/10 border-coral/20',
+                                'D' => 'text-error bg-error/10 border-error/20',
+                            ];
+                            $color = $gradeColors[$grade->kode_grade] ?? 'text-muted bg-soft-stone border-border-light';
+                        @endphp
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-caption font-medium border {{ $color }}">
+                            {{ $grade->kode_grade }}
+                        </span>
+                    </td>
+                    <td class="py-4 px-6 font-medium text-ink">{{ $grade->nama_grade }}</td>
+                    <td class="py-4 px-6 text-body text-muted">{{ $grade->cf_min }}</td>
+                    <td class="py-4 px-6 text-body text-muted">{{ $grade->cf_max }}</td>
+                    <td class="py-4 px-6 text-caption text-muted">
+                        {{ Str::limit($grade->deskripsi, 50) }}
+                    </td>
+                    <td class="py-4 px-6 text-right">
+                        <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <a href="{{ route('admin.grade.edit', $grade->id) }}" class="p-2 text-action-blue hover:bg-action-blue/10 rounded-xs transition-colors" title="Edit">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i>
+                            </a>
+                            <form action="{{ route('admin.grade.destroy', $grade->id) }}" method="POST" class="inline m-0" onsubmit="return confirm('Yakin hapus grade ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-2 text-error hover:bg-error/10 rounded-xs transition-colors" title="Hapus">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="py-12 text-center text-body text-muted">
+                        Belum ada data grade
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 </div>
 
