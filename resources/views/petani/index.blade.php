@@ -48,9 +48,9 @@
                             
                             <select name="{{ $key }}" class="form-select @error($key) border-error @enderror">
                                 <option value="">-- Pilih kondisi --</option>
-                                @foreach($options as $optionKey => $option)
+                                @foreach($options as $optionKey => $optionLabel)
                                     <option value="{{ $optionKey }}" {{ (old($key) ?? ($selected[$key] ?? '')) == $optionKey ? 'selected' : '' }}>
-                                        {{ $option['label'] }}
+                                        {{ $optionLabel }}
                                     </option>
                                 @endforeach
                             </select>
@@ -76,17 +76,17 @@
                             <p class="text-body">{{ $result['error'] }}</p>
                         </div>
                     @else
-                        <h3 class="text-card-heading text-on-dark mb-2">Grade {{ $result['best_grade']['name'] }}</h3>
-                        <div class="text-[32px] font-display font-medium text-coral mb-6">{{ number_format($result['best_grade']['cf'] * 100, 1) }}%</div>
+                        <h3 class="text-card-heading text-on-dark mb-2">{{ $result['best_grade']['label'] }}</h3>
+                        <div class="text-[32px] font-display font-medium text-coral mb-6">{{ number_format($result['best_grade']['confidence'] * 100, 1) }}%</div>
                         
                         <div class="border-t border-ink pt-4 mb-4">
                             <p class="text-caption text-muted mb-3 uppercase tracking-wider">Kemungkinan Lain:</p>
                             <ul class="flex flex-col gap-2">
-                                @foreach($result['all_grades'] as $grade)
-                                    @if($grade['name'] !== $result['best_grade']['name'])
+                                @foreach($result['rankings'] as $grade)
+                                    @if($grade['label'] !== $result['best_grade']['label'])
                                         <li class="flex items-center justify-between text-body">
-                                            <span class="text-muted">Grade {{ $grade['name'] }}</span>
-                                            <span class="text-on-dark">{{ number_format($grade['cf'] * 100, 1) }}%</span>
+                                            <span class="text-muted">{{ $grade['label'] }}</span>
+                                            <span class="text-on-dark">{{ number_format($grade['confidence'] * 100, 1) }}%</span>
                                         </li>
                                     @endif
                                 @endforeach
