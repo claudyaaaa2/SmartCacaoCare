@@ -4,7 +4,7 @@
 @section('nav')
 <nav class="hidden md:flex items-center gap-6 text-body font-medium">
     <a href="{{ route('petani.analysis') }}" class="text-coral hover:text-coral-soft transition-colors flex items-center gap-2"><i data-lucide="search" class="w-4 h-4"></i> Analisis</a>
-    <a href="{{ route('petani.edukasi') }}" class="text-ink hover:text-action-blue transition-colors flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Edukasi</a>
+    <a href="{{ route('mainpage.edukasi') }}" class="text-ink hover:text-action-blue transition-colors flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Edukasi</a>
 </nav>
 @endsection
 
@@ -94,7 +94,7 @@
                         </div>
                         
                         <div class="mt-6">
-                            <a href="{{ route('petani.edukasi') }}" class="btn-primary-white w-full text-center">Lihat Rekomendasi Edukasi</a>
+                            <a href="{{ route('mainpage.edukasi') }}" class="btn-primary-white w-full text-center">Lihat Rekomendasi Edukasi</a>
                         </div>
                     @endif
                 </div>

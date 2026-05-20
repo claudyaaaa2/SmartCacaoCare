@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             KriteriaSeeder::class,       // 3. Buat Daftar Kriteria
             PilihanKriteriaSeeder::class, // 4. Buat Opsi Jawaban & Bobot MB
             RuleCfSeeder::class,         // 5. Hubungkan Kriteria ke Grade
+            EdukasiSeeder::class,        // 6. Tambahkan konten edukasi placeholder
         ]);
     }
 }

@@ -37,7 +37,7 @@
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navGuest">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navGuest">
+            <div class="collapse navbar-collapse" id="navGuest">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('landing') }}">
@@ -46,6 +46,7 @@
                 </li>
             </ul>
             <div class="d-flex gap-2">
+                <a href="{{ url('/') }}" class="no-underline text-ink font-display text-[20px]">SmartCacaoCare</a>
                 <a href="{{ route('login') }}" class="btn btn-navbar-login">
                     <i class="bi bi-box-arrow-in-right"></i> Masuk
                 </a>

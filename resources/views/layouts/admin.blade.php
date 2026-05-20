@@ -22,10 +22,8 @@
 
     <aside class="fixed inset-y-0 left-0 z-50 flex w-[280px] flex-col border-r border-white/10 bg-deep-green text-white shadow-[0_24px_80px_rgba(0,0,0,0.2)]">
         <div class="border-b border-white/10 px-8 py-8">
-            <a href="{{ route('admin.dashboard') }}" class="flex flex-col gap-1">
-                <span class="text-mono-label text-coral-soft">SMARTCOCOA</span>
-                <span class="text-card-heading text-white">Administrator</span>
-                <span class="text-caption text-white/60">Enterprise control panel</span>
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
+                <span class="text-card-heading text-white">SmartCacaoCare</span>
             </a>
         </div>
 

@@ -61,6 +61,153 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Respect device safe-area insets (notches) */
+  html, body {
+    height: 100%;
+  }
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Prevent unwanted horizontal scroll on small devices */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Ensure main content has safe lateral padding and doesn't get cropped */
+  header, main, footer, .site-container {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  /* Site container helper for consistent max-width and horizontal padding */
+  .site-container {
+    width: 100%;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  /* Promo header styles */
+  .promo-header {
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 100%);
+  }
+  .promo-header .promo-image img {
+    display: block;
+    border-radius: 12px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .promo-header .promo-image img.promo-cacao {
+    max-width: 760px;
+    max-height: 480px;
+    object-position: center right;
+  }
+  @media (min-width: 1024px) {
+    .promo-header { padding-top: 80px; padding-bottom: 80px; }
+  }
+
+/* Active nav link */
+a.is-active {
+  color: #f97316; /* action-orange-like */
+  text-decoration: underline;
+}
+
+  /* Hero wrapper to control vertical spacing and centering */
+  .hero-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /* Slightly smaller hero size on small screens to avoid overflow */
+  .text-hero-display {
+    font-size: clamp(36px, 8vw, 72px);
+  }
+
+  /* Redesigned hero split */
+  .hero-split .left {
+    padding-right: 12px;
+  }
+
+  .hero-media {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  }
+
+  .blob {
+    background: radial-gradient(circle at 30% 30%, rgba(24,99,220,0.12), rgba(255,119,89,0.08));
+    filter: blur(18px);
+    pointer-events: none;
+  }
+
+  .btn-pill-outline {
+    @apply inline-flex items-center justify-center bg-transparent text-primary text-button rounded-xl px-[12px] py-[6px] border border-primary transition-colors hover:bg-soft-stone focus:outline-none;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-split { gap: 40px; }
+    .hero-media { transform: translateY(-8px); }
+  }
+
+  /* Hero illustration + modal */
+  .hero-illustration {
+    opacity: 0.12;
+    object-fit: cover;
+  }
+
+  .hero-play { transition: transform .18s ease; }
+  .hero-play:hover { transform: scale(1.06); }
+
+  #video-modal { display: none; }
+  #video-modal.show { display: flex; }
+
+  /* User toggle: completely disable animations when present */
+  .no-animations * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  #toggle-animations {
+    cursor: pointer;
+  }
+
+  @media (max-width: 640px) {
+    header {
+      height: 64px;
+    }
+    .announcement-bar {
+      height: 44px;
+    }
+    main {
+      padding-top: 12px;
+      padding-bottom: 24px;
+    }
+  }
 }
 
 /* Typography Classes */

@@ -4,7 +4,7 @@
 @section('nav')
 <nav class="hidden md:flex items-center gap-6 text-body font-medium">
     <a href="{{ route('petani.analysis') }}" class="text-ink hover:text-action-blue transition-colors flex items-center gap-2"><i data-lucide="search" class="w-4 h-4"></i> Analisis</a>
-    <a href="{{ route('petani.edukasi') }}" class="text-coral hover:text-coral-soft transition-colors flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Edukasi</a>
+    <a href="{{ route('mainpage.edukasi') }}" class="text-coral hover:text-coral-soft transition-colors flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Edukasi</a>
     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-muted hover:text-error transition-colors flex items-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i> Keluar</a>
 </nav>
 @endsection
@@ -82,7 +82,7 @@
                 <div class="text-mono-label text-muted flex items-center gap-2 mb-4 relative z-10"><i data-lucide="zap" class="w-4 h-4 text-action-blue"></i> AKSI CEPAT</div>
                 <ul class="flex flex-col gap-3 relative z-10">
                     <li><a href="{{ route('petani.analysis') }}" class="flex items-center gap-3 text-body font-medium hover:text-action-blue transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i> Buka Analisis</a></li>
-                    <li><a href="{{ route('petani.edukasi') }}" class="flex items-center gap-3 text-body font-medium text-coral hover:text-coral-soft transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i> Buka Edukasi</a></li>
+                    <li><a href="{{ route('mainpage.edukasi') }}" class="flex items-center gap-3 text-body font-medium text-coral hover:text-coral-soft transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i> Buka Edukasi</a></li>
                 </ul>
             </div>
             

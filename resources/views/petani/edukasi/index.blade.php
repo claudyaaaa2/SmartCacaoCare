@@ -2,9 +2,24 @@
 @section('title', 'Edukasi Petani - SmartCacaoCare')
 
 @section('nav')
-<nav class="hidden md:flex items-center gap-6 text-body font-medium">
-    <a href="{{ route('petani.index') }}" class="text-ink hover:text-action-blue transition-colors flex items-center gap-2"><i data-lucide="search" class="w-4 h-4"></i> Analisis</a>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-muted hover:text-error transition-colors flex items-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i> Keluar</a>
+<nav class="hidden md:flex items-center gap-4 text-body font-medium">
+    <form action="{{ route('mainpage.edukasi') }}" method="GET" class="relative">
+        <label for="edu-search" class="sr-only">Cari artikel</label>
+        <input
+            id="edu-search"
+            type="search"
+            name="q"
+            value="{{ $search ?? request('q') }}"
+            placeholder="Cari artikel..."
+            class="w-[340px] lg:w-[420px] rounded-full border border-hairline bg-white px-5 py-3 pr-24 text-base text-ink placeholder:text-muted shadow-sm transition-all focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
+        >
+        @if(!empty($search ?? request('q')))
+            <a href="{{ route('mainpage.edukasi') }}" class="absolute right-16 top-1/2 -translate-y-1/2 text-muted hover:text-ink text-base leading-none">&times;</a>
+        @endif
+        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-coral transition-colors">
+            Cari
+        </button>
+    </form>
 </nav>
 @endsection
 
@@ -20,6 +35,14 @@
         <div>
             <a class="btn-pill-outline border-border-light text-ink hover:bg-soft-stone" href="{{ route('petani.index') }}"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Kembali ke Analisis</a>
         </div>
+
+        @if(!empty($search))
+            <div class="mt-6 inline-flex items-center gap-2 rounded-full border border-hairline bg-soft-stone px-4 py-2 text-sm text-muted">
+                <span>Hasil pencarian:</span>
+                <strong class="text-ink">{{ $search }}</strong>
+                <a href="{{ route('mainpage.edukasi') }}" class="text-coral hover:underline">hapus</a>
+            </div>
+        @endif
     </div>
 
     {{-- Masonry card grid --}}
@@ -47,5 +70,4 @@
         {{ $edukasi->links() }}
     </div>
 </div>
-<form id="logout-form" method="POST" action="{{ route('logout') }}" style="display:none;">@csrf</form>
 @endsection

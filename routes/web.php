@@ -36,8 +36,10 @@ Route::prefix('petani')->group(function () {
     Route::get('/', [UserAnalisisController::class, 'index'])->name('petani.index');
     Route::get('/analisis', [UserAnalisisController::class, 'index'])->name('petani.analysis');
     Route::post('/analisis', [UserAnalisisController::class, 'store'])->name('petani.analyze');
-    Route::get('/edukasi', [UserEdukasiController::class, 'index'])->name('petani.edukasi');
 });
+
+// Public-facing edukasi route for main landing page
+Route::get('/edukasi', [UserEdukasiController::class, 'index'])->name('mainpage.edukasi');
 
 // --- 3. ADMIN ROUTES ---
 // Dilindungi Middleware: Wajib login & role harus 'admin'

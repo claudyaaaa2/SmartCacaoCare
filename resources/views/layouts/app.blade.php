@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>@yield('title', config('app.name', 'SmartCacaoCare'))</title>
 
     {{-- Google Fonts: Outfit (Display) and Inter (Body) --}}
@@ -19,19 +19,16 @@
     {{-- Lucide Icons CDN --}}
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body class="bg-canvas text-ink font-body">
+<body class="bg-canvas text-ink font-body @yield('bodyClass','')">
 
     <div class="announcement-bar">
         <span><span class="font-mono uppercase tracking-widest text-coral mr-2">Status</span> SmartCacaoCare is in active development. <a href="#" class="underline hover:text-white transition-colors">Learn more</a></span>
     </div>
 
-    <div class="max-w-[1440px] mx-auto w-full">
-        <header class="flex items-center justify-between h-[80px] px-[24px] lg:px-[80px] bg-canvas relative z-50 border-b border-border-light" id="topbar">
+    <div class="site-container w-full">
+        <header class="flex items-center justify-between h-[72px] px-[24px] lg:px-[80px] bg-canvas relative z-50 border-b border-border-light" id="topbar">
             <div class="flex items-center gap-3 font-display font-medium text-[20px] text-ink tracking-tight">
-                <div class="w-[32px] h-[32px] rounded-xs bg-cohere-black flex items-center justify-center text-on-dark">
-                    <i data-lucide="leaf" style="width:18px;height:18px"></i>
-                </div>
-                SmartCacaoCare
+                <a href="{{ url('/') }}" class="no-underline text-ink font-display text-[20px]">SmartCacaoCare</a>
             </div>
 
             <button class="md:hidden p-2 text-ink" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Menu">
@@ -47,13 +44,15 @@
                     <a href="#about" class="text-ink hover:text-action-blue transition-colors">About</a>
                     <a href="#services" class="text-ink hover:text-action-blue transition-colors">Services</a>
                     <a href="#contact" class="text-ink hover:text-action-blue transition-colors">Contacts</a>
+                    <a href="{{ route('mainpage.edukasi') }}" class="text-ink hover:text-action-blue transition-colors">Edukasi</a>
                 </nav>
             @endif
 
             <nav class="hidden md:flex items-center gap-4">
-                <a class="text-coral text-body font-medium flex items-center gap-1.5 hover:underline transition-all" href="{{ route('petani.edukasi') }}">
+                <a class="text-coral text-body font-medium flex items-center gap-1.5 hover:underline transition-all" href="{{ route('mainpage.edukasi') }}">
                     <i data-lucide="book-open" class="w-4 h-4"></i> Edukasi
                 </a>
+                <button id="toggle-animations" class="ml-4 text-sm text-muted bg-transparent border border-border-light rounded-xs px-3 py-2">Matikan Animasi</button>
                 @auth
                     <a class="btn-primary" href="{{ route('user.dashboard') }}">
                         Dashboard <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
@@ -67,7 +66,7 @@
 
             {{-- Mobile Menu --}}
             <div id="mobile-menu" class="hidden absolute top-[80px] left-0 right-0 bg-canvas border-b border-border-light p-[24px] flex flex-col gap-4 shadow-lg md:hidden">
-                <a class="btn-secondary justify-start text-lg" href="{{ route('petani.edukasi') }}">Edukasi</a>
+                <a class="btn-secondary justify-start text-lg" href="{{ route('mainpage.edukasi') }}">Edukasi</a>
                 @auth
                     <a class="btn-primary w-full justify-center mt-2" href="{{ route('user.dashboard') }}">Dashboard</a>
                 @else
@@ -76,11 +75,11 @@
             </div>
         </header>
 
-        <main class="min-h-[calc(100vh-80px-200px)]">
+        <main class="min-h-[calc(100vh-80px)]">
             @yield('content')
         </main>
 
-        <footer class="footer-newsletter">
+        <footer id="contact" class="footer-newsletter">
             <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-[40px] items-center">
                 <div>
                     <span class="inline-flex items-center justify-center bg-transparent text-coral text-caption rounded-sm px-[10px] py-[4px] border border-coral-soft mb-[16px]">Agricultural Infrastructure</span>
