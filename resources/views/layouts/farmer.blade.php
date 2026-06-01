@@ -50,6 +50,11 @@
                 <span>Riwayat</span>
             </a>
             
+            <a href="{{ route('user.ai') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('user.ai') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
+                <i data-lucide="bot" class="h-5 w-5"></i>
+                <span>Asisten AI</span>
+            </a>
+            
             <a href="{{ route('mainpage.edukasi') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('mainpage.edukasi') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="book-open" class="h-5 w-5"></i>
                 <span>Edukasi</span>

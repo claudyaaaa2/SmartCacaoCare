@@ -23,82 +23,114 @@
     {{-- Off-canvas Backdrop for Mobile --}}
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
-    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-50 flex w-[280px] -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex-col border-r border-white/10 bg-deep-green text-white shadow-[0_24px_80px_rgba(0,0,0,0.2)]">
-        <div class="border-b border-white/10 px-8 py-8">
+    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-50 flex w-[280px] -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex-col border-r border-border-light bg-canvas text-ink shadow-[12px_0_40px_rgba(0,0,0,0.02)]">
+        
+        {{-- Logo Section --}}
+        <div class="border-b border-border-light px-8 py-6">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
-                <span class="text-card-heading text-white">SmartCacaoCare</span>
+                <span class="font-display font-medium text-[20px] text-ink tracking-tight">SmartCacaoCare</span>
             </a>
         </div>
 
-        <nav class="flex-1 overflow-y-auto px-4 py-6">
-            <div class="px-4 pb-2 text-mono-label text-white/45">Main</div>
-            <a href="{{ route('admin.dashboard') }}" class="mb-1 flex items-center gap-3 rounded-xs px-4 py-3 text-body transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-canvas text-deep-green' : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+        {{-- Navigation Menu --}}
+        <nav class="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-1">
+            <div class="px-4 pb-2 text-mono-label text-muted/60">Main</div>
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="layout-dashboard" class="h-5 w-5"></i>
                 <span>Dashboard</span>
             </a>
 
-            <div class="px-4 pb-2 pt-6 text-mono-label text-white/45">Data Master</div>
-            <a href="{{ route('admin.grade.index') }}" class="mb-1 flex items-center gap-3 rounded-xs px-4 py-3 text-body transition-colors {{ request()->routeIs('admin.grade*') ? 'bg-canvas text-deep-green' : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+            <div class="px-4 pb-2 pt-6 text-mono-label text-muted/60">Data Master</div>
+            <a href="{{ route('admin.grade.index') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.grade*') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="award" class="h-5 w-5"></i>
                 <span>Grade Kualitas</span>
             </a>
-            <a href="{{ route('admin.kriteria.index') }}" class="mb-1 flex items-center gap-3 rounded-xs px-4 py-3 text-body transition-colors {{ request()->routeIs('admin.kriteria*') ? 'bg-canvas text-deep-green' : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+            
+            <a href="{{ route('admin.kriteria.index') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.kriteria*') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="list-checks" class="h-5 w-5"></i>
                 <span>Kriteria</span>
             </a>
-            <a href="{{ route('admin.rule.index') }}" class="mb-1 flex items-center gap-3 rounded-xs px-4 py-3 text-body transition-colors {{ request()->routeIs('admin.rule*') ? 'bg-canvas text-deep-green' : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+            
+            <a href="{{ route('admin.rule.index') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.rule*') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="git-merge" class="h-5 w-5"></i>
                 <span>Rule CF</span>
             </a>
 
-            <div class="px-4 pb-2 pt-6 text-mono-label text-white/45">Konten</div>
-            <a href="{{ route('admin.edukasi.index') }}" class="mb-1 flex items-center gap-3 rounded-xs px-4 py-3 text-body transition-colors {{ request()->routeIs('admin.edukasi*') ? 'bg-canvas text-deep-green' : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+            <div class="px-4 pb-2 pt-6 text-mono-label text-muted/60">Konten</div>
+            <a href="{{ route('admin.edukasi.index') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.edukasi*') && !request()->routeIs('admin.ai*') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="book-open" class="h-5 w-5"></i>
                 <span>Artikel Edukasi</span>
             </a>
+            <a href="{{ route('admin.ai') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.ai*') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
+                <i data-lucide="sparkles" class="h-5 w-5"></i>
+                <span>Asisten AI</span>
+            </a>
 
-            <div class="px-4 pb-2 pt-6 text-mono-label text-white/45">Pengguna</div>
-            <a href="{{ route('admin.user.index') }}" class="mb-1 flex items-center gap-3 rounded-xs px-4 py-3 text-body transition-colors {{ request()->routeIs('admin.user*') ? 'bg-canvas text-deep-green' : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+            <div class="px-4 pb-2 pt-6 text-mono-label text-muted/60">Pengguna</div>
+            <a href="{{ route('admin.user.index') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.user*') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="users" class="h-5 w-5"></i>
                 <span>Data User</span>
             </a>
-            <a href="{{ route('admin.riwayat.index') }}" class="mb-1 flex items-center gap-3 rounded-xs px-4 py-3 text-body transition-colors {{ request()->routeIs('admin.riwayat*') ? 'bg-canvas text-deep-green' : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+            <a href="{{ route('admin.riwayat.index') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-body font-medium transition-all {{ request()->routeIs('admin.riwayat*') ? 'bg-coral/10 text-coral border-l-4 border-coral pl-3' : 'text-slate hover:bg-soft-stone/50 hover:text-ink' }}">
                 <i data-lucide="clock" class="h-5 w-5"></i>
                 <span>Riwayat Analisis</span>
             </a>
         </nav>
 
-        <div class="border-t border-white/10 p-4">
-            <form action="{{ route('logout') }}" method="POST" class="m-0">
+        {{-- User Strip & Logout --}}
+        <div class="border-t border-border-light p-4 flex flex-col gap-3">
+            <div class="flex items-center gap-3 px-4 py-2.5 bg-soft-stone/40 rounded-xl border border-border-light/40">
+                <div class="h-8 w-8 rounded-full bg-coral/10 flex items-center justify-center text-coral text-caption font-bold border border-coral-soft/20 flex-shrink-0">
+                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                </div>
+                <div class="truncate">
+                    <div class="text-caption font-medium text-ink truncate leading-tight">{{ auth()->user()->name }}</div>
+                    <div class="text-micro text-muted truncate mt-0.5 leading-none">{{ auth()->user()->email }}</div>
+                </div>
+            </div>
+            
+            <form action="{{ route('logout') }}" method="POST" class="m-0" id="logout-form">
                 @csrf
-                <button type="submit" class="flex w-full items-center gap-3 rounded-xs px-4 py-3 text-body text-white/75 transition-colors hover:bg-[#ffefec] hover:text-error">
+                <button type="submit" class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-body font-medium text-slate hover:bg-[#ffefec] hover:text-error transition-colors">
                     <i data-lucide="log-out" class="h-5 w-5"></i>
-                    <span>Logout</span>
+                    <span>Keluar</span>
                 </button>
             </form>
         </div>
     </aside>
 
-    <div class="flex-grow flex flex-col min-w-0 lg:ml-[280px]">
-        <header class="sticky top-0 z-40 border-b border-border-light bg-canvas/95 px-6 lg:px-8 py-4 lg:py-5 backdrop-blur flex-shrink-0">
-            <div class="flex items-center justify-between gap-6">
-                <div class="flex items-center gap-4">
-                    <button class="p-2 text-ink hover:bg-soft-stone/50 rounded-lg transition-colors lg:hidden flex-shrink-0" onclick="toggleSidebar()" aria-label="Menu">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </button>
-                    <div>
-                        <h1 class="text-feature-heading lg:text-card-heading m-0 text-ink">@yield('title', 'Dashboard')</h1>
-                        <p class="text-micro lg:text-caption m-0 text-muted">@yield('subtitle', 'Smart Cocoa Care Admin Panel')</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2 lg:gap-3 rounded-full border border-border-light bg-soft-stone px-3 lg:px-4 py-1.5 lg:py-2">
-                    <i data-lucide="user" class="h-4 w-4 text-muted"></i>
-                    <span class="text-micro lg:text-caption font-medium text-ink">{{ auth()->user()->name }}</span>
-                </div>
-            </div>
-        </header>
+    {{-- Mobile Header only --}}
+    <header class="sticky top-0 z-30 flex lg:hidden h-16 items-center justify-between border-b border-border-light bg-canvas px-6 backdrop-blur">
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 font-display font-medium text-[18px] text-ink">
+            SmartCacaoCare
+        </a>
+        <button class="p-2 text-ink hover:bg-soft-stone/50 rounded-lg transition-colors" onclick="toggleSidebar()" aria-label="Menu">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </header>
 
-        <main class="flex-1 p-6 lg:p-10">
+    {{-- Main Content Area --}}
+    <div class="flex-1 flex flex-col min-w-0 lg:ml-[280px]">
+        <main class="flex-1 p-6 lg:p-12">
+            {{-- Dynamic Editorial Page Header Fallback --}}
+            @hasSection('page-header')
+                @yield('page-header')
+            @else
+                @hasSection('title')
+                    <div class="mb-10 border-b border-hairline pb-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="inline-flex items-center justify-center bg-transparent text-coral text-micro uppercase tracking-wider font-mono rounded-sm px-[8px] py-[3px] border border-coral-soft">
+                                <i data-lucide="award" class="w-3.5 h-3.5 mr-1.5"></i> Admin Console
+                            </span>
+                        </div>
+                        <h1 class="text-section-heading font-medium text-ink">@yield('title')</h1>
+                        @hasSection('subtitle')
+                            <p class="text-caption text-muted mt-1 leading-relaxed max-w-[700px]">@yield('subtitle')</p>
+                        @endif
+                    </div>
+                @endif
+            @endif
+
             @if(session('success'))
                 <div class="mb-6 flex items-start gap-3 rounded-lg border border-deep-green/15 bg-pale-green px-4 py-4 text-body text-deep-green">
                     <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5"></i>

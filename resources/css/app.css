@@ -88,16 +88,15 @@
   }
 
   /* Ensure main content has safe lateral padding and doesn't get cropped */
-  header, main, footer, .site-container {
-    padding-left: max(12px, env(safe-area-inset-left));
-    padding-right: max(12px, env(safe-area-inset-right));
+  /* Ensure header and footer respect safe areas while full-bleed */
+  header, footer {
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
   }
 
-  /* Site container helper for consistent max-width and horizontal padding */
+  /* Site container helper - clean full width for edge-to-edge layout */
   .site-container {
     width: 100%;
-    padding-left: max(12px, env(safe-area-inset-left));
-    padding-right: max(12px, env(safe-area-inset-right));
   }
 
   /* Promo header styles */
@@ -138,10 +137,7 @@ a.is-active {
     padding-bottom: 40px;
   }
 
-  /* Slightly smaller hero size on small screens to avoid overflow */
-  .text-hero-display {
-    font-size: clamp(36px, 8vw, 72px);
-  }
+  /* Handled by utility text-hero-display */
 
   /* Redesigned hero split */
   .hero-split .left {
@@ -206,8 +202,8 @@ a.is-active {
 
 /* Typography Classes */
 @utility text-hero-display {
-  @apply font-display font-normal leading-[1] tracking-[-0.02em];
-  font-size: clamp(48px, 8vw, 96px);
+  @apply font-display font-medium leading-[1.05] tracking-[-0.03em];
+  font-size: clamp(32px, 5.2vw, 68px);
 }
 @utility text-product-display {
   @apply font-display font-normal leading-[1] tracking-[-0.02em];

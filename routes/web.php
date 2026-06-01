@@ -30,6 +30,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
     Route::get('/riwayat', [UserAnalisisController::class, 'riwayat'])->name('user.riwayat');
+    Route::get('/ai', [App\Http\Controllers\Users\AiController::class, 'farmerIndex'])->name('user.ai');
+    Route::post('/ai/chat', [App\Http\Controllers\Users\AiController::class, 'farmerChat'])->name('user.ai.chat');
 });
 
 Route::prefix('petani')->group(function () {
@@ -54,6 +56,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('users', UserController::class)->names('admin.user');
     Route::resource('riwayat', RiwayatController::class)->names('admin.riwayat');
     
+    Route::get('/ai', [App\Http\Controllers\Users\AiController::class, 'adminIndex'])->name('admin.ai');
+    Route::post('/ai/generate', [App\Http\Controllers\Users\AiController::class, 'adminGenerate'])->name('admin.ai.generate');
 });
 
 // --- ROUTE LOGOUT ---

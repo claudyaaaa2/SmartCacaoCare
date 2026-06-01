@@ -5,34 +5,34 @@
 @section('content')
     {{-- PROMO EDUKASI HEADER - two-column hero --}}
     <section id="about" class="w-full">
-        <div class="w-full mx-0 overflow-hidden">
-            <div class="flex flex-col lg:flex-row">
-                <div class="lg:w-1/2 w-full h-[560px] lg:h-[720px] relative bg-cover bg-center" style="background-image:url('{{ asset('cacao.jpg') }}')">
+        <div class="w-full mx-0 overflow-hidden border-b border-hairline">
+            <div class="flex flex-col lg:flex-row lg:min-h-[640px] xl:min-h-[720px]">
+                <div class="lg:w-1/2 w-full min-h-[300px] sm:min-h-[400px] md:min-h-[480px] lg:min-h-full relative bg-cover bg-center" style="background-image:url('{{ asset('cacao_hero.png') }}')">
                     <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
                 </div>
 
-                <div class="lg:w-1/2 w-full bg-white p-8 md:p-16 flex items-center">
-                    <div class="max-w-[640px] mx-auto">
-                        <h1 class="text-hero-display mb-4 text-ink">Edukasi SmartCacaoCare</h1>
-                        <p class="text-body-large text-body-muted mb-6">Pelatihan singkat, panduan lapangan, dan video praktis untuk membantu petani meningkatkan mutu kakao dengan SmartCacaoCare — gratis dan mudah diikuti.</p>
+                <div class="lg:w-1/2 w-full bg-white p-6 sm:p-10 md:p-16 lg:p-20 flex items-center">
+                    <div class="max-w-[560px] lg:max-w-[600px] w-full">
+                        <h1 class="text-hero-display mb-6 text-ink">Edukasi <span class="text-coral block sm:inline-block xl:inline">SmartCacaoCare</span></h1>
+                        <p class="text-body-large text-body-muted mb-8 leading-relaxed">Pelatihan singkat, panduan lapangan, dan video praktis untuk membantu petani meningkatkan mutu kakao dengan SmartCacaoCare — gratis dan mudah diikuti.</p>
 
-                        <div class="flex flex-wrap items-center gap-4 mb-6">
-                            <a href="{{ route('mainpage.edukasi') }}" class="btn-primary">Jelajahi Edukasi <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
-                            <a href="{{ route('petani.index') }}" class="btn-pill-outline flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Coba Analisis</a>
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
+                            <a href="{{ route('mainpage.edukasi') }}" class="btn-primary w-full sm:w-auto justify-center">Jelajahi Edukasi <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
+                            <a href="{{ route('petani.index') }}" class="btn-pill-outline w-full sm:w-auto justify-center flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Coba Analisis</a>
                         </div>
 
-                        <div class="flex gap-6 flex-wrap">
-                            <div class="text-center">
-                                <div class="text-[44px] font-display text-ink">Materi</div>
-                                <div class="text-caption text-muted">Panduan & Video</div>
+                        <div class="grid grid-cols-3 gap-4 sm:gap-8 pt-8 border-t border-hairline mt-8 w-full">
+                            <div class="text-left">
+                                <div class="text-[28px] sm:text-[36px] font-display font-medium text-ink leading-none mb-2">Materi</div>
+                                <div class="text-caption text-muted leading-tight">Panduan & Video</div>
                             </div>
-                            <div class="text-center">
-                                <div class="text-[44px] font-display text-ink">Praktis</div>
-                                <div class="text-caption text-muted">Langkah demi langkah</div>
+                            <div class="text-left">
+                                <div class="text-[28px] sm:text-[36px] font-display font-medium text-ink leading-none mb-2">Praktis</div>
+                                <div class="text-caption text-muted leading-tight">Langkah demi langkah</div>
                             </div>
-                            <div class="text-center">
-                                <div class="text-[44px] font-display text-ink">Gratis</div>
-                                <div class="text-caption text-muted">Untuk petani</div>
+                            <div class="text-left">
+                                <div class="text-[28px] sm:text-[36px] font-display font-medium text-ink leading-none mb-2">Gratis</div>
+                                <div class="text-caption text-muted leading-tight">Untuk petani</div>
                             </div>
                         </div>
                     </div>
@@ -51,13 +51,14 @@
     </div>
 
     {{-- EDUKASI SINGKAT - Landing cards to highlight learning content --}}
-    <section id="edu" class="w-full px-[24px] py-[64px]">
-        <div class="text-center mb-[40px]">
-            <h2 class="text-section-display mb-4">Edukasi Singkat untuk Petani</h2>
-            <p class="text-body text-muted max-w-[720px] mx-auto">Pelajari langkah-langkah praktis untuk meningkatkan mutu kakao Anda — dari panen hingga penyimpanan.</p>
-        </div>
+    <section id="edu" class="w-full px-[24px] lg:px-[80px] py-[64px]">
+        <div class="max-w-[1200px] mx-auto">
+            <div class="text-center mb-[40px]">
+                <h2 class="text-section-display mb-4">Edukasi Singkat untuk Petani</h2>
+                <p class="text-body text-muted max-w-[720px] mx-auto">Pelajari langkah-langkah praktis untuk meningkatkan mutu kakao Anda — dari panen hingga penyimpanan.</p>
+            </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a href="{{ route('mainpage.edukasi') }}" class="capability-card hover:scale-[1.02] transition-transform">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 rounded-full bg-coral flex items-center justify-center text-on-primary"><i data-lucide="book-open" class="w-5 h-5"></i></div>
@@ -85,7 +86,8 @@
                 <span class="text-action-blue font-medium">Baca selengkapnya →</span>
             </a>
         </div>
-    </section>
+    </div>
+</section>
 
     {{-- TRUST LOGO STRIP (Stats) --}}
     <section class="trust-logo-strip border-t border-hairline mt-[40px] w-full">
@@ -100,7 +102,7 @@
 
     {{-- DARK FEATURE BAND --}}
     <section id="services" class="dark-feature-band">
-        <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center">
+        <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center">
             <div>
                 <h2 class="text-section-display mb-6">Analisis profesional,<br>langsung di lapangan.</h2>
                 <p class="text-body-large text-slate mb-8 max-w-[440px]">Masuk ke form, pilih kondisi tiap kriteria, lalu dapatkan grade utama beserta ranking keyakinan secara real-time. Tidak ada kebisingan visual, hanya data yang Anda butuhkan.</p>
@@ -131,4 +133,83 @@
             @endguest
         </div>
     </section>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bars = document.querySelectorAll('.progress-bar');
+            
+            if (!bars.length) return;
+
+            // Helper to animate numbers smoothly
+            function animateNumber(element, start, end, duration) {
+                let startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    const currentVal = start + progress * (end - start);
+                    element.textContent = currentVal.toFixed(1) + '%';
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                }
+                window.requestAnimationFrame(step);
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bar = entry.target;
+                        const fill = bar.querySelector('.progress-fill');
+                        const target = parseFloat(bar.getAttribute('data-target') || '0');
+                        
+                        // Find matching progress value element
+                        const container = bar.closest('.bg-primary');
+                        let valueEl = null;
+                        if (container) {
+                            valueEl = container.querySelector(`.progress-value[data-target="${bar.getAttribute('data-target')}"]`);
+                        }
+
+                        // Make progress fill animate using hardware-accelerated CSS transition
+                        if (fill) {
+                            fill.style.transition = 'width 1.8s cubic-bezier(0.22, 1, 0.36, 1)';
+                            // Force reflow to ensure the initial state is registered before animating
+                            fill.offsetHeight; 
+                            fill.style.width = target + '%';
+                        }
+
+                        if (valueEl) {
+                            animateNumber(valueEl, 0, target, 1800);
+                        }
+
+                        // Stop observing this bar once animated
+                        observer.unobserve(bar);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px' // Trigger slightly before reaching the viewport center
+            });
+
+            bars.forEach(bar => {
+                // Ensure starting state is clean 0% width and 0% text
+                const fill = bar.querySelector('.progress-fill');
+                if (fill) {
+                    fill.style.width = '0%';
+                }
+                
+                const container = bar.closest('.bg-primary');
+                if (container) {
+                    const valueEl = container.querySelector(`.progress-value[data-target="${bar.getAttribute('data-target')}"]`);
+                    if (valueEl) {
+                        valueEl.textContent = '0.0%';
+                    }
+                }
+                
+                observer.observe(bar);
+            });
+        });
+    </script>
+    @endpush
 @endsection

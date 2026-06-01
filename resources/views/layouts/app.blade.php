@@ -21,9 +21,6 @@
 </head>
 <body class="bg-canvas text-ink font-body @yield('bodyClass','')">
 
-    <div class="announcement-bar">
-        <span><span class="font-mono uppercase tracking-widest text-coral mr-2">Status</span> SmartCacaoCare is in active development. <a href="#" class="underline hover:text-white transition-colors">Learn more</a></span>
-    </div>
 
     <div class="site-container w-full">
         <header class="flex items-center justify-between h-[72px] px-[24px] lg:px-[80px] bg-canvas relative z-50 border-b border-border-light" id="topbar">

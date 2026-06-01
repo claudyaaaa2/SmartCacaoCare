@@ -131,15 +131,7 @@ function animateFloatingAccents() {
 }
 
 function setProgressImmediate() {
-	document.querySelectorAll('.progress-bar').forEach((bar) => {
-		const target = parseFloat(bar.getAttribute('data-target') || '0');
-		const fill = bar.querySelector('.progress-fill');
-		if (fill) fill.style.width = target + '%';
-	});
-	document.querySelectorAll('.progress-value').forEach((el) => {
-		const target = parseFloat(el.getAttribute('data-target') || '0');
-		el.textContent = `${target}%`;
-	});
+	// Handled by dynamic high-fidelity intersection animations in welcome.blade.php
 }
 
 function animateProgressBars() {
