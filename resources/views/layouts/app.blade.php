@@ -119,23 +119,43 @@
         </main>
 
         <footer id="contact" class="footer-newsletter">
-            <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-[40px] items-center">
-                <div>
+            <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-[48px]">
+                <!-- Left Column (Brand info) -->
+                <div class="md:col-span-6 flex flex-col items-start">
                     <span class="inline-flex items-center justify-center bg-transparent text-coral text-caption rounded-sm px-[10px] py-[4px] border border-coral-soft mb-[16px]">Agricultural Infrastructure</span>
-                    <h3 class="font-display text-[32px] font-normal leading-[1.2] tracking-[-0.01em] text-on-dark mb-4">Advance your cacao quality.</h3>
-                    <p class="text-muted text-body max-w-[40ch]">SmartCacaoCare provides the tools and references you need to make confident decisions on the field.</p>
+                    <h3 class="font-display text-[28px] font-normal leading-[1.2] tracking-[-0.01em] text-on-dark mb-4">SmartCacaoCare</h3>
+                    <p class="text-muted text-body max-w-[44ch] mb-6">Platform analisis cerdas dan pustaka edukasi interaktif untuk membantu petani meningkatkan standar mutu dan daya saing biji kakao Indonesia.</p>
+                    <div class="flex items-center gap-2 text-micro text-muted">
+                        <i data-lucide="mail" class="w-4 h-4 text-coral"></i>
+                        <span>info@smartcacaocare.com</span>
+                    </div>
                 </div>
-                <div class="flex flex-col gap-[16px]">
-                    <p class="text-micro text-muted uppercase tracking-[0.02em] font-mono">Subscribe to updates</p>
-                    <div class="flex gap-2">
-                        <input type="email" placeholder="Your email address" class="w-full h-[44px] px-[14px] py-[10px] rounded-xs border border-cohere-black bg-ink text-on-dark text-body transition-colors focus:outline-none focus:border-coral focus:ring-1 focus:ring-coral">
-                        <button class="btn-primary-white">Submit</button>
+
+                <!-- Right Columns (Links Grid) -->
+                <div class="md:col-span-6 grid grid-cols-2 gap-8 w-full">
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-mono-label text-white text-[12px] font-mono tracking-wider opacity-60">Layanan Utama</h4>
+                        <ul class="flex flex-col gap-2">
+                            <li><a href="{{ route('petani.analysis') }}" class="text-body text-muted hover:text-white hover:underline transition-all">Analisis Mutu Kakao</a></li>
+                            <li><a href="{{ route('mainpage.edukasi') }}" class="text-body text-muted hover:text-white hover:underline transition-all">Pustaka Edukasi</a></li>
+                            <li><a href="{{ route('petani.index') }}" class="text-body text-muted hover:text-white hover:underline transition-all">Uji Coba Sistem</a></li>
+                        </ul>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-mono-label text-white text-[12px] font-mono tracking-wider opacity-60">Informasi Platform</h4>
+                        <ul class="flex flex-col gap-2">
+                            <li><a href="#about" class="text-body text-muted hover:text-white hover:underline transition-all">Tentang Kami</a></li>
+                            <li><a href="#services" class="text-body text-muted hover:text-white hover:underline transition-all">Layanan Kami</a></li>
+                            <li><a href="#topbar" class="text-body text-muted hover:text-white hover:underline transition-all">Kembali ke Atas</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="max-w-[1200px] mx-auto mt-[64px] pt-[24px] border-t border-ink flex flex-col md:flex-row justify-between text-muted">
-                <span class="flex items-center gap-2"><i data-lucide="leaf" style="width:14px;height:14px"></i> SmartCacaoCare 2026</span>
-                <span class="mt-4 md:mt-0 text-right">Enterprise Quality Control</span>
+
+            <!-- Bottom Credits -->
+            <div class="max-w-[1200px] mx-auto mt-[64px] pt-[24px] border-t border-ink flex flex-col md:flex-row justify-between text-muted text-micro">
+                <span class="flex items-center gap-2"><i data-lucide="leaf" class="w-3.5 h-3.5 text-coral"></i> SmartCacaoCare 2026</span>
+                <span class="mt-4 md:mt-0 text-right uppercase tracking-[0.05em] font-mono">Enterprise Quality Control</span>
             </div>
         </footer>
     </div>

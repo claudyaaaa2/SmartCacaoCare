@@ -17,8 +17,13 @@
                         <p class="text-body-large text-body-muted mb-8 leading-relaxed">Pelatihan singkat, panduan lapangan, dan video praktis untuk membantu petani meningkatkan mutu kakao dengan SmartCacaoCare — gratis dan mudah diikuti.</p>
 
                         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
-                            <a href="{{ route('mainpage.edukasi') }}" class="btn-primary w-full sm:w-auto justify-center">Jelajahi Edukasi <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
-                            <a href="{{ route('petani.index') }}" class="btn-pill-outline w-full sm:w-auto justify-center flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Coba Analisis</a>
+                            @auth
+                                <a href="{{ route('mainpage.edukasi') }}" class="btn-primary w-full sm:w-auto justify-center">Jelajahi Edukasi <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
+                                <a href="{{ route('petani.index') }}" class="btn-pill-outline w-full sm:w-auto justify-center flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Coba Analisis</a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn-primary w-full sm:w-auto justify-center">Jelajahi Edukasi <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
+                                <a href="{{ route('login') }}" class="btn-pill-outline w-full sm:w-auto justify-center flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Coba Analisis</a>
+                            @endauth
                         </div>
 
                         <div class="grid grid-cols-3 gap-4 sm:gap-8 pt-8 border-t border-hairline mt-8 w-full">
@@ -59,7 +64,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="{{ route('mainpage.edukasi') }}" class="capability-card hover:scale-[1.02] transition-transform">
+            <a href="{{ Auth::check() ? route('mainpage.edukasi') : route('login') }}" class="capability-card hover:scale-[1.02] transition-transform">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 rounded-full bg-coral flex items-center justify-center text-on-primary"><i data-lucide="book-open" class="w-5 h-5"></i></div>
                     <h3 class="text-card-heading m-0">Pengenalan Grade</h3>
@@ -68,7 +73,7 @@
                 <span class="text-action-blue font-medium">Baca selengkapnya →</span>
             </a>
 
-            <a href="{{ route('mainpage.edukasi') }}" class="capability-card hover:scale-[1.02] transition-transform">
+            <a href="{{ Auth::check() ? route('mainpage.edukasi') : route('login') }}" class="capability-card hover:scale-[1.02] transition-transform">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 rounded-full bg-action-blue flex items-center justify-center text-on-primary"><i data-lucide="search" class="w-5 h-5"></i></div>
                     <h3 class="text-card-heading m-0">Mendeteksi Kualitas</h3>
@@ -77,7 +82,7 @@
                 <span class="text-action-blue font-medium">Baca selengkapnya →</span>
             </a>
 
-            <a href="{{ route('mainpage.edukasi') }}" class="capability-card hover:scale-[1.02] transition-transform">
+            <a href="{{ Auth::check() ? route('mainpage.edukasi') : route('login') }}" class="capability-card hover:scale-[1.02] transition-transform">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 rounded-full bg-deep-green flex items-center justify-center text-on-primary"><i data-lucide="leaf" class="w-5 h-5"></i></div>
                     <h3 class="text-card-heading m-0">Pemeliharaan & Panen</h3>
@@ -127,7 +132,7 @@
         <h2 class="text-section-display mb-6 text-ink">Mulai analisis<br>pertama Anda.</h2>
         <p class="text-body-large text-body-muted mb-10 max-w-[500px] mx-auto">Bergabung dengan petani kakao yang sudah menggunakan SmartCacaoCare untuk keputusan lapangan yang lebih cepat dan akurat.</p>
         <div class="flex items-center justify-center gap-6">
-            <a href="{{ route('petani.index') }}" class="btn-primary">Mulai Sekarang</a>
+            <a href="{{ Auth::check() ? route('petani.index') : route('login') }}" class="btn-primary">Mulai Sekarang</a>
             @guest
                 <a href="{{ route('register') }}" class="btn-secondary">Daftar Gratis</a>
             @endguest
@@ -141,15 +146,23 @@
             
             if (!bars.length) return;
 
-            // Helper to animate numbers smoothly
-            function animateNumber(element, start, end, duration) {
+            // Helper to animate both progress bar width and number count-up in perfect sync
+            // This relies on requestAnimationFrame inline styles, making it immune to global CSS transition: none rules.
+            function animateProgressBar(fillEl, valueEl, target, duration) {
                 let startTime = null;
+                const easeOutQuad = (t) => t * (2 - t); // Silky smooth deceleration easing
 
                 function step(timestamp) {
                     if (!startTime) startTime = timestamp;
                     const progress = Math.min((timestamp - startTime) / duration, 1);
-                    const currentVal = start + progress * (end - start);
-                    element.textContent = currentVal.toFixed(1) + '%';
+                    const easedProgress = easeOutQuad(progress);
+                    
+                    const currentWidth = easedProgress * target;
+                    const currentVal = easedProgress * target;
+                    
+                    if (fillEl) fillEl.style.width = currentWidth.toFixed(2) + '%';
+                    if (valueEl) valueEl.textContent = currentVal.toFixed(1) + '%';
+                    
                     if (progress < 1) {
                         window.requestAnimationFrame(step);
                     }
@@ -171,17 +184,8 @@
                             valueEl = container.querySelector(`.progress-value[data-target="${bar.getAttribute('data-target')}"]`);
                         }
 
-                        // Make progress fill animate using hardware-accelerated CSS transition
-                        if (fill) {
-                            fill.style.transition = 'width 1.8s cubic-bezier(0.22, 1, 0.36, 1)';
-                            // Force reflow to ensure the initial state is registered before animating
-                            fill.offsetHeight; 
-                            fill.style.width = target + '%';
-                        }
-
-                        if (valueEl) {
-                            animateNumber(valueEl, 0, target, 1800);
-                        }
+                        // Animate both concurrently using pure frame rendering
+                        animateProgressBar(fill, valueEl, target, 1600);
 
                         // Stop observing this bar once animated
                         observer.unobserve(bar);
@@ -193,11 +197,9 @@
             });
 
             bars.forEach(bar => {
-                // Ensure starting state is clean 0% width and 0% text
+                // Ensure starting state is 0%
                 const fill = bar.querySelector('.progress-fill');
-                if (fill) {
-                    fill.style.width = '0%';
-                }
+                if (fill) fill.style.width = '0%';
                 
                 const container = bar.closest('.bg-primary');
                 if (container) {
