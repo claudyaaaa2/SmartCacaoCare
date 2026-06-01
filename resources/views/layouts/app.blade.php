@@ -41,21 +41,41 @@
                 </div>
             @else
                 <nav class="hidden md:flex items-center gap-8 text-body font-medium">
-                    <a href="#about" class="text-ink hover:text-action-blue transition-colors">About</a>
-                    <a href="#services" class="text-ink hover:text-action-blue transition-colors">Services</a>
-                    <a href="#contact" class="text-ink hover:text-action-blue transition-colors">Contacts</a>
-                    <a href="{{ route('mainpage.edukasi') }}" class="text-ink hover:text-action-blue transition-colors">Edukasi</a>
+                    @auth
+                        <a href="{{ route('user.dashboard') }}" class="{{ request()->routeIs('user.dashboard') ? 'text-coral' : 'text-ink hover:text-action-blue' }} transition-colors flex items-center gap-2">
+                            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+                        </a>
+                        <a href="{{ route('petani.analysis') }}" class="{{ request()->routeIs('petani.analysis') ? 'text-coral' : 'text-ink hover:text-action-blue' }} transition-colors flex items-center gap-2">
+                            <i data-lucide="search" class="w-4 h-4"></i> Analisis
+                        </a>
+                        <a href="{{ route('user.riwayat') }}" class="{{ request()->routeIs('user.riwayat') ? 'text-coral' : 'text-ink hover:text-action-blue' }} transition-colors flex items-center gap-2">
+                            <i data-lucide="clock" class="w-4 h-4"></i> Riwayat
+                        </a>
+                        <a href="{{ route('mainpage.edukasi') }}" class="{{ request()->routeIs('mainpage.edukasi') ? 'text-coral' : 'text-ink hover:text-action-blue' }} transition-colors flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> Edukasi
+                        </a>
+                    @else
+                        @if(request()->is('/') || request()->is('#*'))
+                            <a href="#about" class="text-ink hover:text-action-blue transition-colors">About</a>
+                            <a href="#services" class="text-ink hover:text-action-blue transition-colors">Services</a>
+                            <a href="#contact" class="text-ink hover:text-action-blue transition-colors">Contacts</a>
+                        @else
+                            <a href="{{ url('/') }}" class="text-ink hover:text-action-blue transition-colors">Beranda</a>
+                            <a href="{{ route('petani.analysis') }}" class="{{ request()->routeIs('petani.analysis') ? 'text-coral' : 'text-ink hover:text-action-blue' }} transition-colors flex items-center gap-2">
+                                <i data-lucide="search" class="w-4 h-4"></i> Analisis
+                            </a>
+                            <a href="{{ route('mainpage.edukasi') }}" class="{{ request()->routeIs('mainpage.edukasi') ? 'text-coral' : 'text-ink hover:text-action-blue' }} transition-colors flex items-center gap-2">
+                                <i data-lucide="book-open" class="w-4 h-4"></i> Edukasi
+                            </a>
+                        @endif
+                    @endauth
                 </nav>
             @endif
 
             <nav class="hidden md:flex items-center gap-4">
-                <a class="text-coral text-body font-medium flex items-center gap-1.5 hover:underline transition-all" href="{{ route('mainpage.edukasi') }}">
-                    <i data-lucide="book-open" class="w-4 h-4"></i> Edukasi
-                </a>
-                <button id="toggle-animations" class="ml-4 text-sm text-muted bg-transparent border border-border-light rounded-xs px-3 py-2">Matikan Animasi</button>
                 @auth
-                    <a class="btn-primary" href="{{ route('user.dashboard') }}">
-                        Dashboard <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                    <a class="btn-pill-outline border-border-light text-ink hover:bg-soft-stone py-2 px-4 text-body" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Keluar <i data-lucide="log-out" class="ml-1 w-4 h-4"></i>
                     </a>
                 @else
                     <a class="btn-primary" href="{{ route('login') }}">
@@ -65,12 +85,34 @@
             </nav>
 
             {{-- Mobile Menu --}}
-            <div id="mobile-menu" class="hidden absolute top-[80px] left-0 right-0 bg-canvas border-b border-border-light p-[24px] flex flex-col gap-4 shadow-lg md:hidden">
-                <a class="btn-secondary justify-start text-lg" href="{{ route('mainpage.edukasi') }}">Edukasi</a>
+            <div id="mobile-menu" class="hidden absolute top-[80px] left-0 right-0 bg-canvas border-b border-border-light p-[24px] flex flex-col gap-4 shadow-lg md:hidden z-50">
                 @auth
-                    <a class="btn-primary w-full justify-center mt-2" href="{{ route('user.dashboard') }}">Dashboard</a>
+                    <a href="{{ route('user.dashboard') }}" class="text-ink hover:text-coral transition-colors font-medium flex items-center gap-2 py-2">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+                    </a>
+                    <a href="{{ route('petani.analysis') }}" class="text-ink hover:text-coral transition-colors font-medium flex items-center gap-2 py-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> Analisis
+                    </a>
+                    <a href="{{ route('user.riwayat') }}" class="text-ink hover:text-coral transition-colors font-medium flex items-center gap-2 py-2">
+                        <i data-lucide="clock" class="w-4 h-4"></i> Riwayat
+                    </a>
+                    <a href="{{ route('mainpage.edukasi') }}" class="text-ink hover:text-coral transition-colors font-medium flex items-center gap-2 py-2">
+                        <i data-lucide="book-open" class="w-4 h-4"></i> Edukasi
+                    </a>
+                    <hr class="border-border-light my-2">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-error font-medium flex items-center gap-2 py-2">
+                        <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
+                    </a>
                 @else
-                    <a class="btn-primary w-full justify-center mt-2" href="{{ route('login') }}">Masuk</a>
+                    <a href="{{ url('/') }}" class="text-ink font-medium py-2">Beranda</a>
+                    <a href="{{ route('petani.analysis') }}" class="text-ink font-medium py-2 flex items-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> Analisis
+                    </a>
+                    <a href="{{ route('mainpage.edukasi') }}" class="text-ink font-medium py-2 flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-4 h-4"></i> Edukasi
+                    </a>
+                    <hr class="border-border-light my-2">
+                    <a class="btn-primary w-full justify-center py-3" href="{{ route('login') }}">Masuk</a>
                 @endauth
             </div>
         </header>
@@ -100,6 +142,10 @@
             </div>
         </footer>
     </div>
+
+    @auth
+        <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display:none;">@csrf</form>
+    @endauth
 
     <script>lucide.createIcons();</script>
     @stack('scripts')

@@ -4,7 +4,7 @@ it('shows the petani analysis form', function () {
     $response = $this->get('/petani');
 
     $response->assertOk();
-    $response->assertSee('Form Penilaian Petani');
+    $response->assertSee('Analisis Mutu');
 });
 
 it('calculates the best grade from submitted selections', function () {

@@ -1,39 +1,36 @@
-@extends('layouts.app')
+@extends(auth()->check() ? 'layouts.farmer' : 'layouts.app')
 @section('title', 'Edukasi Petani - SmartCacaoCare')
 
-@section('nav')
-<nav class="hidden md:flex items-center gap-4 text-body font-medium">
-    <form action="{{ route('mainpage.edukasi') }}" method="GET" class="relative">
-        <label for="edu-search" class="sr-only">Cari artikel</label>
-        <input
-            id="edu-search"
-            type="search"
-            name="q"
-            value="{{ $search ?? request('q') }}"
-            placeholder="Cari artikel..."
-            class="w-[340px] lg:w-[420px] rounded-full border border-hairline bg-white px-5 py-3 pr-24 text-base text-ink placeholder:text-muted shadow-sm transition-all focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
-        >
-        @if(!empty($search ?? request('q')))
-            <a href="{{ route('mainpage.edukasi') }}" class="absolute right-16 top-1/2 -translate-y-1/2 text-muted hover:text-ink text-base leading-none">&times;</a>
-        @endif
-        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-coral transition-colors">
-            Cari
-        </button>
-    </form>
-</nav>
-@endsection
-
 @section('content')
-<div class="max-w-[1200px] mx-auto px-[24px] py-[80px]">
+<div class="max-w-[1200px] mx-auto {{ auth()->check() ? '' : 'px-[24px] py-[80px]' }}">
     {{-- Editorial banner --}}
-    <div class="mb-[64px] border-b border-hairline pb-[40px]">
+    <div class="{{ auth()->check() ? 'mb-12 border-b border-hairline pb-8' : 'mb-[64px] border-b border-hairline pb-[40px]' }}">
         <div class="flex items-center gap-2 mb-6">
             <span class="blog-filter-chip"><i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Edukasi Petani</span>
         </div>
         <h1 class="text-section-display mb-6 text-ink">Referensi untuk<br>mutu biji kakao.</h1>
         <p class="text-body-large text-muted max-w-[600px] mb-8">Kumpulan materi yang membantu petani memahami budidaya, perawatan, panen, hingga pasca panen agar hasil analisis kualitas lebih konsisten.</p>
-        <div>
+        
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
             <a class="btn-pill-outline border-border-light text-ink hover:bg-soft-stone" href="{{ route('petani.index') }}"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Kembali ke Analisis</a>
+            
+            <form action="{{ route('mainpage.edukasi') }}" method="GET" class="relative w-full md:w-auto">
+                <label for="edu-search" class="sr-only">Cari artikel</label>
+                <input
+                    id="edu-search"
+                    type="search"
+                    name="q"
+                    value="{{ $search ?? request('q') }}"
+                    placeholder="Cari artikel..."
+                    class="w-full md:w-[300px] lg:w-[400px] rounded-full border border-hairline bg-white px-5 py-3 pr-24 text-base text-ink placeholder:text-muted shadow-sm transition-all focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
+                >
+                @if(!empty($search ?? request('q')))
+                    <a href="{{ route('mainpage.edukasi') }}" class="absolute right-16 top-1/2 -translate-y-1/2 text-muted hover:text-ink text-base leading-none">&times;</a>
+                @endif
+                <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-coral transition-colors">
+                    Cari
+                </button>
+            </form>
         </div>
 
         @if(!empty($search))

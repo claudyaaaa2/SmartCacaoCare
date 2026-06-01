@@ -1,40 +1,42 @@
 @extends('layouts.app')
 @section('bodyClass','page-landing')
-@section('title', 'SmartCacaoCare — Analisis Mutu Kakao')
+@section('title', 'SmartCacaoCare - Analisis Mutu Kakao')
 
 @section('content')
-    {{-- PROMO EDUKASI HEADER --}}
-    <section id="about" class="promo-header w-full px-[24px] pt-[28px] pb-[28px] md:pt-[64px] md:pb-[64px]">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div class="promo-content">
-                <div class="max-w-[640px]">
-                    <h1 class="text-hero-display mb-4 text-ink">Edukasi SmartCacaoCare</h1>
-                    <p class="text-body-large text-body-muted mb-6">Pelatihan singkat, panduan lapangan, dan video praktis untuk membantu petani meningkatkan mutu kakao dengan SmartCacaoCare — gratis dan mudah diikuti.</p>
+    {{-- PROMO EDUKASI HEADER - two-column hero --}}
+    <section id="about" class="w-full">
+        <div class="w-full mx-0 overflow-hidden">
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 w-full h-[560px] lg:h-[720px] relative bg-cover bg-center" style="background-image:url('{{ asset('cacao.jpg') }}')">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+                </div>
 
-                    <div class="flex flex-wrap items-center gap-4 mb-6">
-                        <a href="{{ route('mainpage.edukasi') }}" class="btn-primary">Jelajahi Edukasi <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
-                        <a href="{{ route('petani.index') }}" class="btn-pill-outline flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Coba Analisis</a>
-                    </div>
+                <div class="lg:w-1/2 w-full bg-white p-8 md:p-16 flex items-center">
+                    <div class="max-w-[640px] mx-auto">
+                        <h1 class="text-hero-display mb-4 text-ink">Edukasi SmartCacaoCare</h1>
+                        <p class="text-body-large text-body-muted mb-6">Pelatihan singkat, panduan lapangan, dan video praktis untuk membantu petani meningkatkan mutu kakao dengan SmartCacaoCare — gratis dan mudah diikuti.</p>
 
-                    <div class="flex gap-6 flex-wrap">
-                        <div class="text-center">
-                            <div class="text-[44px] font-display text-ink">Materi</div>
-                            <div class="text-caption text-muted">Panduan & Video</div>
+                        <div class="flex flex-wrap items-center gap-4 mb-6">
+                            <a href="{{ route('mainpage.edukasi') }}" class="btn-primary">Jelajahi Edukasi <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i></a>
+                            <a href="{{ route('petani.index') }}" class="btn-pill-outline flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Coba Analisis</a>
                         </div>
-                        <div class="text-center">
-                            <div class="text-[44px] font-display text-ink">Praktis</div>
-                            <div class="text-caption text-muted">Langkah demi langkah</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-[44px] font-display text-ink">Gratis</div>
-                            <div class="text-caption text-muted">Untuk petani</div>
+
+                        <div class="flex gap-6 flex-wrap">
+                            <div class="text-center">
+                                <div class="text-[44px] font-display text-ink">Materi</div>
+                                <div class="text-caption text-muted">Panduan & Video</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-[44px] font-display text-ink">Praktis</div>
+                                <div class="text-caption text-muted">Langkah demi langkah</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-[44px] font-display text-ink">Gratis</div>
+                                <div class="text-caption text-muted">Untuk petani</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="promo-image flex justify-center">
-                <img src="{{ asset('cacao.jpg') }}" alt="Ladang kakao - Edukasi SmartCacaoCare" class="rounded-lg shadow-2xl w-full max-w-[760px] object-cover promo-cacao" />
             </div>
         </div>
     </section>

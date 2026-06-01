@@ -1,17 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.farmer')
 @section('title', 'Dashboard Petani - SmartCacaoCare')
 
-@section('nav')
-<nav class="hidden md:flex items-center gap-6 text-body font-medium">
-    <a href="{{ route('petani.analysis') }}" class="text-ink hover:text-action-blue transition-colors flex items-center gap-2"><i data-lucide="search" class="w-4 h-4"></i> Analisis</a>
-    <a href="{{ route('mainpage.edukasi') }}" class="text-coral hover:text-coral-soft transition-colors flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Edukasi</a>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-muted hover:text-error transition-colors flex items-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i> Keluar</a>
-</nav>
-@endsection
-
 @section('content')
-<div class="max-w-[1200px] mx-auto px-[24px] py-[80px]">
-    <div class="mb-[64px]">
+<div class="max-w-[1200px] mx-auto">
+    <div class="mb-12">
         <div class="flex items-center gap-2 mb-4">
             <span class="blog-filter-chip"><i data-lucide="layout-dashboard" class="w-4 h-4 mr-2"></i> Dashboard</span>
         </div>
@@ -22,10 +14,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {{-- Stats cards --}}
         <div class="agent-console-card flex flex-col justify-between min-h-[200px]">
-            <div class="text-mono-label text-muted flex items-center gap-2 mb-4"><i data-lucide="database" class="w-4 h-4"></i> DATA KRITERIA</div>
+            <div class="text-mono-label text-muted flex items-center gap-2 mb-4"><i data-lucide="clock" class="w-4 h-4 text-coral"></i> TOTAL ANALISIS ANDA</div>
             <div>
-                <div class="text-[48px] font-display font-medium leading-none mb-2">{{ $criteriaCount }}</div>
-                <div class="text-caption text-muted">Kriteria yang dinilai dalam setiap analisis mutu biji kakao.</div>
+                <div class="text-[48px] font-display font-medium leading-none mb-2 text-coral">{{ $totalAnalisis }}</div>
+                <div class="text-caption text-muted">Jumlah batch biji kakao yang sudah Anda evaluasi mutunya.</div>
             </div>
         </div>
 
@@ -96,6 +88,65 @@
             </div>
         </div>
     </div>
+
+    @if($riwayatTerbaru->count())
+        <div class="mt-12 border-t border-hairline pt-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-card-heading text-ink font-medium">Analisis Terbaru Anda</h2>
+                <a href="{{ route('user.riwayat') }}" class="btn-secondary flex items-center gap-1 text-action-blue font-medium hover:underline">
+                    Lihat Semua <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+            
+            <div class="contact-form-card p-0 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-border-light bg-soft-stone/50 text-mono-label text-muted">
+                                <th class="py-4 px-6 font-medium w-[80px]">No</th>
+                                <th class="py-4 px-6 font-medium">Tanggal</th>
+                                <th class="py-4 px-6 font-medium">Grade Hasil</th>
+                                <th class="py-4 px-6 font-medium">Tingkat Keyakinan</th>
+                                <th class="py-4 px-6 font-medium">Rekomendasi Penanganan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border-light">
+                            @foreach($riwayatTerbaru as $item)
+                            @php
+                                $gradeColors = [
+                                    'A' => 'text-green-700 bg-green-50 border-green-200',
+                                    'B' => 'text-blue-700 bg-blue-50 border-blue-200',
+                                    'C' => 'text-amber-700 bg-amber-50 border-amber-200',
+                                    'D' => 'text-red-700 bg-red-50 border-red-200',
+                                ];
+                                $color = $gradeColors[$item->grade_hasil] ?? 'text-slate bg-soft-stone border-border-light';
+                            @endphp
+                            <tr class="hover:bg-soft-stone/30 transition-colors">
+                                <td class="py-4 px-6 text-body text-muted">{{ $loop->iteration }}</td>
+                                <td class="py-4 px-6 text-body text-ink">
+                                    <span class="font-medium">{{ $item->created_at->format('d M Y') }}</span>
+                                    <span class="text-caption text-muted ml-2">{{ $item->created_at->format('H:i') }} WIB</span>
+                                </td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-caption font-medium border {{ $color }}">
+                                        Grade {{ $item->grade_hasil }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-caption font-medium border border-border-light bg-soft-stone/50 text-ink">
+                                        {{ number_format($item->persentase_cf, 1) }}%
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-caption text-muted max-w-[300px] truncate" title="{{ $item->rekomendasi }}">
+                                    {{ $item->rekomendasi }}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
-<form id="logout-form" method="POST" action="{{ route('logout') }}" style="display:none;">@csrf</form>
 @endsection

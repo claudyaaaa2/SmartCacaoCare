@@ -17,43 +17,56 @@
     @endif
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body class="bg-deep-green text-ink font-body min-h-screen flex items-center justify-center p-[24px]">
+<body class="bg-white text-ink font-body min-h-screen flex items-center justify-center p-0">
 
-    <div class="contact-form-card w-full max-w-[480px]">
-        @if ($errors->any())
-            <div class="bg-error/10 text-error p-4 rounded-xs mb-6 text-body">
-                <div class="flex items-center gap-2 mb-2 font-medium"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Terdapat kesalahan</div>
-                @foreach ($errors->all() as $error)<div>{{ $error }}</div>@endforeach
+    <div class="w-full overflow-hidden">
+        <div class="flex flex-col md:flex-row min-h-screen">
+            <!-- Left: image / visual -->
+            <div class="md:w-1/2 w-full h-screen relative bg-cover bg-center" style="background-image:url('{{ asset('cacao.jpg') }}')">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
             </div>
-        @endif
 
-        <div class="mb-10 text-center">
-            <div class="w-12 h-12 bg-primary text-white rounded-xs flex items-center justify-center mx-auto mb-6">
-                <i data-lucide="leaf" class="w-6 h-6"></i>
-            </div>
-            <h1 class="text-section-heading mb-2">Masuk akun</h1>
-            <p class="text-body text-muted">Akses dashboard petani atau admin.</p>
-        </div>
+            <!-- Right: login form -->
+            <div class="md:w-1/2 w-full bg-white p-8 md:p-12 flex flex-col h-screen justify-center">
+                <div class="w-full max-w-[480px] mx-auto">
+                    @if ($errors->any())
+                        <div class="bg-error/10 text-error p-4 rounded-xs mb-6 text-body">
+                            <div class="flex items-center gap-2 mb-2 font-medium"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Terdapat kesalahan</div>
+                            @foreach ($errors->all() as $error)<div>{{ $error }}</div>@endforeach
+                        </div>
+                    @endif
 
-        <form method="POST" action="{{ route('login') }}" class="flex flex-col gap-6">
-            @csrf
-            <div>
-                <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-input" required autofocus>
-            </div>
-            <div>
-                <label for="password" class="form-label">Password</label>
-                <input id="password" type="password" name="password" class="form-input" required>
-            </div>
-            
-            <div class="flex flex-col gap-4 mt-4">
-                <button class="btn-primary w-full" type="submit">Masuk</button>
-                <a class="btn-secondary w-full" href="{{ url('/') }}">Kembali ke Beranda</a>
-            </div>
-        </form>
+                    <div class="text-center mb-6">
+                        <a href="{{ url('/') }}" class="inline-block text-deep-green font-display font-semibold text-sm">SmartCacaoCare</a>
+                        <h1 class="text-[28px] font-display font-semibold text-ink mt-3">Masuk</h1>
+                        <p class="text-body text-muted max-w-[36ch] mx-auto mt-2">Akses dashboard petani atau admin.</p>
+                    </div>
 
-        <div class="text-center mt-10 text-caption text-muted">
-            Belum punya akun? <a href="{{ route('register') }}" class="text-action-blue font-medium hover:underline">Daftar di sini</a>.
+                    <form method="POST" action="{{ route('login') }}" class="flex flex-col gap-4">
+                        @csrf
+                        <div>
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-input" required autofocus>
+                        </div>
+                        <div>
+                            <label for="password" class="form-label">Password</label>
+                            <input id="password" type="password" name="password" class="form-input" required>
+                        </div>
+
+                        <div class="mt-6">
+                            <button class="btn-primary w-full rounded-full py-3" type="submit">Masuk</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-6">
+                        <a class="text-action-blue font-medium" href="{{ url('/') }}">Kembali ke Beranda</a>
+                    </div>
+
+                    <div class="text-center mt-6 text-caption text-muted">
+                        Belum punya akun? <a href="{{ route('register') }}" class="text-action-blue font-medium hover:underline">Daftar di sini</a>.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -1,16 +1,9 @@
-@extends('layouts.app')
+@extends(auth()->check() ? 'layouts.farmer' : 'layouts.app')
 @section('title', 'Analisis Mutu Kakao - SmartCacaoCare')
 
-@section('nav')
-<nav class="hidden md:flex items-center gap-6 text-body font-medium">
-    <a href="{{ route('petani.analysis') }}" class="text-coral hover:text-coral-soft transition-colors flex items-center gap-2"><i data-lucide="search" class="w-4 h-4"></i> Analisis</a>
-    <a href="{{ route('mainpage.edukasi') }}" class="text-ink hover:text-action-blue transition-colors flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Edukasi</a>
-</nav>
-@endsection
-
 @section('content')
-<div class="max-w-[1200px] mx-auto px-[24px] py-[80px]">
-    <div class="mb-[64px] border-b border-hairline pb-[40px]">
+<div class="max-w-[1200px] mx-auto {{ auth()->check() ? '' : 'px-[24px] py-[80px]' }}">
+    <div class="{{ auth()->check() ? 'mb-12 border-b border-hairline pb-8' : 'mb-[64px] border-b border-hairline pb-[40px]' }}">
         <div class="flex items-center gap-2 mb-6">
             <span class="blog-filter-chip border-action-blue text-action-blue hover:bg-action-blue hover:text-white"><i data-lucide="search" class="w-4 h-4 mr-2"></i> Analisis Mutu</span>
         </div>

@@ -29,6 +29,7 @@ Route::middleware('guest')->group(function () {
 // Dilindungi Middleware: Wajib login & role harus 'user'
 Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('/riwayat', [UserAnalisisController::class, 'riwayat'])->name('user.riwayat');
 });
 
 Route::prefix('petani')->group(function () {

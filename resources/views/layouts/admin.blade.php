@@ -18,9 +18,12 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     @stack('styles')
 </head>
-<body class="font-body bg-soft-stone text-ink min-h-screen flex">
+<body class="font-body bg-soft-stone text-ink min-h-screen flex flex-col lg:flex-row">
 
-    <aside class="fixed inset-y-0 left-0 z-50 flex w-[280px] flex-col border-r border-white/10 bg-deep-green text-white shadow-[0_24px_80px_rgba(0,0,0,0.2)]">
+    {{-- Off-canvas Backdrop for Mobile --}}
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-50 flex w-[280px] -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex-col border-r border-white/10 bg-deep-green text-white shadow-[0_24px_80px_rgba(0,0,0,0.2)]">
         <div class="border-b border-white/10 px-8 py-8">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
                 <span class="text-card-heading text-white">SmartCacaoCare</span>
@@ -76,21 +79,26 @@
         </div>
     </aside>
 
-    <div class="ml-[280px] flex min-h-screen flex-1 flex-col">
-        <header class="sticky top-0 z-40 border-b border-border-light bg-canvas/95 px-8 py-5 backdrop-blur">
+    <div class="flex-grow flex flex-col min-w-0 lg:ml-[280px]">
+        <header class="sticky top-0 z-40 border-b border-border-light bg-canvas/95 px-6 lg:px-8 py-4 lg:py-5 backdrop-blur flex-shrink-0">
             <div class="flex items-center justify-between gap-6">
-                <div>
-                    <h1 class="text-card-heading m-0 text-ink">@yield('title', 'Dashboard')</h1>
-                    <p class="text-caption m-0 text-muted">@yield('subtitle', 'Smart Cocoa Care Admin Panel')</p>
+                <div class="flex items-center gap-4">
+                    <button class="p-2 text-ink hover:bg-soft-stone/50 rounded-lg transition-colors lg:hidden flex-shrink-0" onclick="toggleSidebar()" aria-label="Menu">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                    <div>
+                        <h1 class="text-feature-heading lg:text-card-heading m-0 text-ink">@yield('title', 'Dashboard')</h1>
+                        <p class="text-micro lg:text-caption m-0 text-muted">@yield('subtitle', 'Smart Cocoa Care Admin Panel')</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-3 rounded-full border border-border-light bg-soft-stone px-4 py-2">
+                <div class="flex items-center gap-2 lg:gap-3 rounded-full border border-border-light bg-soft-stone px-3 lg:px-4 py-1.5 lg:py-2">
                     <i data-lucide="user" class="h-4 w-4 text-muted"></i>
-                    <span class="text-caption font-medium text-ink">{{ auth()->user()->name }}</span>
+                    <span class="text-micro lg:text-caption font-medium text-ink">{{ auth()->user()->name }}</span>
                 </div>
             </div>
         </header>
 
-        <main class="flex-1 p-8 lg:p-10">
+        <main class="flex-1 p-6 lg:p-10 min-h-screen">
             @if(session('success'))
                 <div class="mb-6 flex items-start gap-3 rounded-lg border border-deep-green/15 bg-pale-green px-4 py-4 text-body text-deep-green">
                     <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5"></i>
@@ -107,13 +115,20 @@
             @yield('content')
         </main>
 
-        <footer class="border-t border-border-light px-8 py-6 text-center text-caption text-muted">
+        <footer class="border-t border-border-light px-8 py-6 text-center text-caption text-muted bg-canvas/30">
             © {{ date('Y') }} Smart Cocoa Care — Enterprise System
         </footer>
     </div>
 
     <script>
         lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            sidebar.classList.toggle('-translate-x-full');
+            backdrop.classList.toggle('hidden');
+        }
     </script>
     @stack('scripts')
 </body>

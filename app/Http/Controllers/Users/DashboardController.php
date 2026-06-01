@@ -25,6 +25,8 @@ class DashboardController extends Controller
                 fn ($definition) => $definition['label'] ?? '',
                 $this->certaintyFactorService->criteria()
             )),
+            'totalAnalisis' => \App\Models\HasilAnalisis::where('user_id', auth()->id())->count(),
+            'riwayatTerbaru' => \App\Models\HasilAnalisis::where('user_id', auth()->id())->latest()->take(5)->get(),
         ];
     }
 }
