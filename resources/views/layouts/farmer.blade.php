@@ -87,7 +87,7 @@
 
     {{-- Main Content Area --}}
     <div class="flex-1 flex flex-col min-w-0 lg:ml-[280px]">
-        <main class="flex-1 p-6 lg:p-12 min-h-screen">
+        <main class="flex-1 p-6 lg:p-12">
             @yield('content')
         </main>
 

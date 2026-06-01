@@ -6,29 +6,29 @@
 @source '../**/*.js';
 
 @theme {
-  --color-primary: #17171c;
-  --color-cohere-black: #000000;
-  --color-ink: #212121;
-  --color-deep-green: #003c33;
-  --color-dark-navy: #071829;
-  --color-canvas: #ffffff;
-  --color-soft-stone: #eeece7;
-  --color-pale-green: #edfce9;
-  --color-pale-blue: #f1f5ff;
-  --color-hairline: #d9d9dd;
-  --color-border-light: #e5e7eb;
-  --color-card-border: #f2f2f2;
-  --color-muted: #93939f;
-  --color-slate: #75758a;
-  --color-body-muted: #616161;
-  --color-action-blue: #1863dc;
-  --color-focus-blue: #4c6ee6;
-  --color-coral: #ff7759;
-  --color-coral-soft: #ffad9b;
-  --color-form-focus: #9b60aa;
+  --color-primary: #2e221c; /* Dark Cocoa Espresso */
+  --color-cohere-black: #1a120e; /* Deep Roasted Bean */
+  --color-ink: #2e221c; /* Dark Cocoa Espresso */
+  --color-deep-green: #3e4c3e; /* Olive Foliage / moss */
+  --color-dark-navy: #1e2630; /* Muted Blue Slate */
+  --color-canvas: #faf8f5; /* Pulp Cream Canvas */
+  --color-soft-stone: #efebe4; /* Almond Seed Shell */
+  --color-pale-green: #f0f3f0; /* Very Light Sage Wash */
+  --color-pale-blue: #f3f4f6; /* Light Warm Grey Wash */
+  --color-hairline: #ddd5c7; /* Soft Clay Border */
+  --color-border-light: #e6e0d5; /* Warm Accent Line */
+  --color-card-border: #f5f1ea; /* Softest Card Border */
+  --color-muted: #8e8279; /* Dried Cocoa Husk */
+  --color-slate: #7a7068; /* Deep Soil Dust */
+  --color-body-muted: #5e544d; /* Warm Charcoal Brown */
+  --color-action-blue: #2a6b8c; /* Muted Teal Blue */
+  --color-focus-blue: #c17248; /* Terracotta Pod for Focus */
+  --color-coral: #c17248; /* Terracotta Pod */
+  --color-coral-soft: #dec3b4; /* Soft Terracotta Tint */
+  --color-form-focus: #b07c54; /* Warm Cinnamon Honey */
   --color-on-primary: #ffffff;
   --color-on-dark: #ffffff;
-  --color-error: #b30000;
+  --color-error: #a63a3a; /* Muted Dark Clay Red */
 
   --font-display: "Outfit", "Space Grotesk", sans-serif;
   --font-body: "Inter", "Unica77 Cohere Web", sans-serif;
@@ -62,19 +62,13 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+  /* Globally disable all animations and transitions across the entire site */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 
   /* Respect device safe-area insets (notches) */

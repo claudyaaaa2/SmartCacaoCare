@@ -5,18 +5,20 @@
 <div class="max-w-[1200px] mx-auto {{ auth()->check() ? '' : 'px-[24px] py-[80px]' }}">
     <div class="{{ auth()->check() ? 'mb-12 border-b border-hairline pb-8' : 'mb-[64px] border-b border-hairline pb-[40px]' }}">
         <div class="flex items-center gap-2 mb-6">
-            <span class="blog-filter-chip border-action-blue text-action-blue hover:bg-action-blue hover:text-white"><i data-lucide="search" class="w-4 h-4 mr-2"></i> Analisis Mutu</span>
+            <span class="inline-flex items-center justify-center bg-transparent text-coral text-micro uppercase tracking-wider font-mono rounded-sm px-[10px] py-[4px] border border-coral-soft">
+                <i data-lucide="search" class="w-3.5 h-3.5 mr-1.5"></i> Analisis Mutu
+            </span>
         </div>
         <h1 class="text-section-display mb-6 text-ink">Cek kepastian<br>grade kakao Anda.</h1>
         <p class="text-body-large text-muted max-w-[600px] mb-8">Pilih kondisi kriteria biji kakao Anda saat ini untuk melihat prediksi kualitas dan grade menggunakan metode Certainty Factor.</p>
         
         @auth
             <div>
-                <a class="btn-pill-outline border-border-light text-ink hover:bg-soft-stone" href="{{ route('user.dashboard') }}"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Kembali ke Dashboard</a>
+                <a class="btn-pill-outline border-border-light text-ink hover:bg-soft-stone py-2.5 px-5" href="{{ route('user.dashboard') }}"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Kembali ke Dashboard</a>
             </div>
         @else
             <div>
-                <a class="btn-pill-outline border-border-light text-ink hover:bg-soft-stone" href="{{ url('/') }}"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Kembali ke Halaman Utama</a>
+                <a class="btn-pill-outline border-border-light text-ink hover:bg-soft-stone py-2.5 px-5" href="{{ url('/') }}"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Kembali ke Halaman Utama</a>
             </div>
         @endauth
     </div>
@@ -92,14 +94,13 @@
                     @endif
                 </div>
             @else
-                <div class="product-card min-h-[300px] flex flex-col items-center justify-center text-center">
-                    <i data-lucide="inbox" class="w-12 h-12 text-muted mb-4"></i>
-                    <h3 class="text-body-large text-ink font-medium mb-2">Belum ada hasil</h3>
-                    <p class="text-caption text-muted">Silakan isi formulir kriteria di samping dan klik analisis untuk melihat hasil.</p>
+                <div class="bg-canvas border border-card-border p-12 text-center rounded-lg shadow-sm flex flex-col items-center justify-center min-h-[300px]">
+                    <i data-lucide="inbox" class="w-12 h-12 text-muted mb-4 flex-shrink-0"></i>
+                    <h3 class="text-body-large text-ink font-medium mb-1">Belum ada hasil</h3>
+                    <p class="text-caption text-muted max-w-[280px]">Silakan isi formulir kriteria di samping dan klik analisis untuk melihat hasil.</p>
                 </div>
             @endif
         </div>
     </div>
 </div>
-<form id="logout-form" method="POST" action="{{ route('logout') }}" style="display:none;">@csrf</form>
 @endsection

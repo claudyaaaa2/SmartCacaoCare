@@ -7,11 +7,7 @@ const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 // Respect explicit user toggle stored in localStorage: 'siteAnimations' = 'on'|'off'
 function animationsEnabled() {
-	const stored = localStorage.getItem('siteAnimations');
-	if (stored === 'off') return false;
-	if (stored === 'on') return true;
-	// fallback to system preference: if user prefers reduce -> disabled
-	return !motionQuery.matches;
+	return false;
 }
 
 function stopMotion() {
@@ -196,78 +192,13 @@ function animateProgressBars() {
 
 function initMotion() {
 	document.documentElement.classList.add('gsap-ready');
-	if (!animationsEnabled()) {
-		document.body.classList.add('no-animations');
-		stopMotion();
-		return;
-	}
-
-	document.body.classList.remove('no-animations');
-
-	if (motionQuery.matches) {
-		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-		gsap.set(
-			[
-				'header',
-				'.announcement-bar',
-				'main section',
-				'main article',
-				'main > div',
-				'main h1',
-				'main h2',
-				'main h3',
-				'main h4',
-				'main h5',
-				'main h6',
-				'main p',
-				'main li',
-				'main tr',
-				'main .hero-photo-card',
-				'main .agent-console-card',
-				'main .product-card',
-				'main .capability-card',
-				'main .contact-form-card',
-				'main .research-table-row',
-				'main .btn-primary',
-				'main .btn-secondary',
-				'main .btn-pill-outline',
-				'main .blog-filter-chip',
-				'main .form-input',
-				'main .form-select',
-				'main .form-textarea',
-			],
-			{ opacity: 1, x: 0, y: 0, rotate: 0 }
-		);
-
-		return;
-	}
-
-	animateLoadTargets();
-
-	revealFamilies.forEach(({ selector, strength, duration }) => {
-		animateRevealFamily(selector, strength, duration);
-	});
-
-	animateFloatingAccents();
-
-	// progress bars
-	if (!animationsEnabled()) {
-		setProgressImmediate();
-	} else {
-		animateProgressBars();
-	}
-
-	// Conditional per-page enhancements: import landing cinematic if body has .page-landing
-	try {
-		const isLanding = document.body.classList.contains('page-landing');
-		if (isLanding) {
-			import('./animations/landing').then((m) => m.default(gsap));
-		}
-	} catch (e) {
-		// ignore dynamic import failures in older browsers
-		console.warn('Could not load page-specific animations', e);
-	}
+	document.body.classList.add('no-animations');
+	stopMotion();
+	setProgressImmediate();
+	return;
 }
+
+
 
 if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', initMotion, { once: true });

@@ -98,7 +98,7 @@
             </div>
         </header>
 
-        <main class="flex-1 p-6 lg:p-10 min-h-screen">
+        <main class="flex-1 p-6 lg:p-10">
             @if(session('success'))
                 <div class="mb-6 flex items-start gap-3 rounded-lg border border-deep-green/15 bg-pale-green px-4 py-4 text-body text-deep-green">
                     <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5"></i>
