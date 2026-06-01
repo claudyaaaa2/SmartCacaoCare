@@ -43,7 +43,7 @@
                             
                             <select name="{{ $key }}" class="form-select @error($key) border-error @enderror">
                                 <option value="">-- Pilih kondisi --</option>
-                                @foreach($options as $optionKey => $optionLabel)
+                                @foreach(($item['options'] ?? $options) as $optionKey => $optionLabel)
                                     <option value="{{ $optionKey }}" {{ (old($key) ?? ($selected[$key] ?? '')) == $optionKey ? 'selected' : '' }}>
                                         {{ $optionLabel }}
                                     </option>
